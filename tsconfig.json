@@ -1,16 +1,18 @@
 {
   "compilerOptions": {
+    "baseUrl": "./src",
     "target": "es5",
     "module": "commonjs",
-    "strict": true,
+    "lib": ["dom","es6"],
+    "strictPropertyInitialization": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "removeComments": true,
     "esModuleInterop": true,
+    "strict": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*.ts"
-  ]
+  "exclude": [ "node_modules" ],
+  "include": [ "src/**/*.ts" ]
 }
