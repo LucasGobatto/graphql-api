@@ -1,0 +1,19 @@
+{
+  "name": "graphql-api",
+  "version": "1.0.0",
+  "description": "An package that creates a simple GraphQL server template with some schemas, authentication modes and token generation. The server will be hosted localy at ´localhost:PORT/graphql´.",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/LucasGobatto/graphql-api.git"
+  },
+  "author": "LucasGobatto",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/LucasGobatto/graphql-api/issues"
+  },
+  "homepage": "https://github.com/LucasGobatto/graphql-api#readme"
+}
