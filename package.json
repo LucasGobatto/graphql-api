@@ -4,12 +4,14 @@
   "description": "A package that creates a simple GraphQL server template with some schemas, authentication modes and token generation. The server will be hosted localy at ´localhost:PORT/graphql´.",
   "main": "src/index.ts",
   "scripts": {
-    "start": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
+    "dev": "nodemon 'src/index.ts' --exec 'ts-node' src/index.ts -e ts,graphql",
+    "build": "tsc",
+    "start": "node 'dist/index.js'",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix"
   },
   "dependencies": {
     "apollo-server-express": "2.24.0",
-    "express": "4.17.1",
+    "express": "^4.17.1",
     "graphql": "15.5.0",
     "nodemon": "2.0.7",
     "reflect-metadata": "0.1.13"
