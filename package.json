@@ -2,9 +2,12 @@
   "name": "graphql-api",
   "version": "1.0.0",
   "description": "An package that creates a simple GraphQL server template with some schemas, authentication modes and token generation. The server will be hosted localy at ´localhost:PORT/graphql´.",
-  "main": "index.js",
+  "main": "index.ts",
   "scripts": {
     "test": ""
+  },
+  "devDependencies": {
+    "typescript": "4.2.4"
   },
   "repository": {
     "type": "git",
