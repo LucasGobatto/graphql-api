@@ -1,13 +1,3 @@
-import { gql } from "apollo-server-core";
-
-export const resolvers = {
-  Query: {
-    hello: () => "Hello World!",
-  },
-};
-
-export const typeDefs = gql`
-  type Query {
-    hello: String!
-  }
-`;
+export * from './resolvers';
+export * from './schema.types';
+export * from './type-defs';
