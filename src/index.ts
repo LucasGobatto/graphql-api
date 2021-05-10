@@ -1,9 +1,14 @@
 import { ApolloServer } from "apollo-server-express";
 import { createServer } from "http";
 import express from "express";
+import dotenv from 'dotenv';
 
 import { resolvers, typeDefs } from "./schema";
 
+const path = process.env.TEST === 'OK' ? '.env' : '.test.env'
+dotenv.config({ path });
+
+console.log(process.env)
 const server = new ApolloServer({ resolvers, typeDefs });
 
 const app = express();
