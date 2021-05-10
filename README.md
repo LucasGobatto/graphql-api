@@ -1,6 +1,6 @@
 # GRAPHQL API
 
-A package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`.
+A package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`. Based on https://github.com/w3cj/create-express-api
 
 # Environment and Tools
 
