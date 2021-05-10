@@ -1,4 +1,4 @@
-import { Connection, createConnection } from "typeorm";
+import { Connection, createConnection } from 'typeorm';
 
 interface DatabaseParams {
   username: string;
@@ -10,13 +10,13 @@ interface DatabaseParams {
 export class Database {
   static async config(param: DatabaseParams): Promise<Connection> {
     return createConnection({
-      type: "postgres",
-      host: "localhost",
+      type: 'postgres',
+      host: 'localhost',
       port: param.port,
       username: param.username,
       password: param.password,
       database: param.database,
-      entities: [__dirname + "/entity/*.ts"],
+      entities: [__dirname + '/../entity/*.ts'],
       synchronize: true,
     });
   }
