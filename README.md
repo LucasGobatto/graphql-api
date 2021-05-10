@@ -1,6 +1,6 @@
 # GRAPHQL API
 
-An package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`. 
+An package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`.
 
 # Environment and Tools
 
@@ -11,4 +11,21 @@ An package that creates a simple GraphQL server template with [TypeScript](https
 
 # Steps to Run and Debug
 
-- [TODO]
+- To run the server in development mode for debug:
+
+```
+npm run dev
+```
+
+- To deploy the server and run:
+
+```
+npm run build
+npm start
+```
+
+- To apply Lint pattern to clean the code:
+
+```
+npm run lint
+```
