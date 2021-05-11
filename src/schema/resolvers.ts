@@ -38,7 +38,13 @@ export const resolvers = {
     login: async (_: any, { data: args }: { data: LoginInput }): Promise<LoginType> => {
       const { password, email } = args;
 
-      const isValid = ValidateLoginUseCase.exec({ password, email });
+      const user = await ValidateLoginUseCase.exec({ password, email });
+      const token = 'mocked_token';
+
+      return {
+        token,
+        user,
+      };
     },
   },
 };
