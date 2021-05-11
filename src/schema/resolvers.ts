@@ -1,4 +1,4 @@
-import { UserInput, UserType } from './schema.types';
+import { LoginInput, LoginType, UserInput, UserType } from './schema.types';
 import { User } from '../entity/User';
 import { getRepository } from 'typeorm';
 import { ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain/validate-input.usa-case';
@@ -33,6 +33,12 @@ export const resolvers = {
       user.password = await CryptoService.hash(args.password);
 
       return await getRepository(User).save(user);
+    },
+
+    login: async (_: any, { data: args }: { data: LoginInput }): Promise<LoginType> => {
+      const { password, email } = args;
+
+      const isValid = ValidateLoginUseCase.exec({ password, email });
     },
   },
 };
