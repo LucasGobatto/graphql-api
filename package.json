@@ -17,6 +17,7 @@
     "dotenv": "9.0.1",
     "express": "4.17.1",
     "graphql": "15.5.0",
+    "jsonwebtoken": "8.5.1",
     "nodemon": "2.0.7",
     "pg": "8.6.0",
     "reflect-metadata": "0.1.13",
