@@ -1,5 +1,5 @@
-import { CryptoService } from 'chore/security/crypto';
-import { UserType } from 'schema';
+import { CryptoService } from '../chore/security/crypto';
+import { UserType } from '../schema/schema.types';
 import { getRepository } from 'typeorm';
 import { User } from '../entity/User';
 
