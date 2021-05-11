@@ -2,6 +2,7 @@ import { UserInput, UserType } from './schema.types';
 import { User } from '../entity/User';
 import { getRepository } from 'typeorm';
 import { ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain/validate-input.usa-case';
+import { CryptoService } from '../chore/security/crypto';
 
 export const resolvers = {
   Query: {
@@ -18,15 +19,20 @@ export const resolvers = {
       user.phone = args.phone;
       user.avatar = args.avatar;
 
-      if (ValidateEmailUseCase.exec(args.email)) {
-        if (ValidatePasswordUseCase.exec(args.password)) {
-          return await getRepository(User).save(user);
-        } else {
-          throw new Error('Senha inválida');
-        }
-      } else {
+      const validEmail = ValidateEmailUseCase.exec(args.email);
+
+      if (!validEmail) {
         throw new Error('Email inválido');
       }
+
+      const validPassword = ValidatePasswordUseCase.exec(args.password);
+      if (!validPassword) {
+        throw new Error('Senha inválida');
+      }
+
+      user.password = await CryptoService.hash(args.password);
+
+      return await getRepository(User).save(user);
     },
   },
 };

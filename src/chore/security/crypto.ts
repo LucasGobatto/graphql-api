@@ -1,6 +1,6 @@
 import * as crypto from 'crypto';
 
-function hash(value: string) {
+function hash(value: string): Promise<string> {
   return new Promise((resolve, reject) => {
     // generate random 16 bytes long salt
     const salt = crypto.randomBytes(16).toString('hex');
