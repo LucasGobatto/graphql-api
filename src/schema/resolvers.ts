@@ -1,7 +1,7 @@
 import { LoginInput, LoginType, UserInput, UserType } from './schema.types';
 import { User } from '../entity/User';
 import { getRepository } from 'typeorm';
-import { ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain/validate-input.usa-case';
+import { ValidateLoginUseCase, ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain';
 import { CryptoService } from '../chore/security/crypto';
 
 export const resolvers = {
