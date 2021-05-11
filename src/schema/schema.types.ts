@@ -7,6 +7,11 @@ export interface UserInput {
   avatar?: string;
 }
 
+export interface LoginInput {
+  email: string;
+  password: string;
+}
+
 export interface UserType {
   id: number;
   name: string;
@@ -14,4 +19,9 @@ export interface UserType {
   birthDate?: string;
   phone?: string;
   avatar?: string;
+}
+
+export interface LoginType {
+  token: string;
+  user?: UserType;
 }
