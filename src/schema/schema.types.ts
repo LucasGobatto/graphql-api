@@ -30,3 +30,7 @@ export interface LoginType {
   token: string;
   user?: UserType;
 }
+
+export interface Context {
+  token: string;
+}

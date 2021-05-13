@@ -24,7 +24,7 @@ export const typeDefs = gql`
 
   type LoginType {
     token: String!
-    user: User
+    user: UserType
   }
 
   type UserType {
