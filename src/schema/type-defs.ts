@@ -35,8 +35,8 @@ export const typeDefs = gql`
   }
 
   type Query {
-    user(data: UserInput!): UserType!
-    users(data: UsersInput!): [UserType!]
+    getOneUser(data: UserInput!): UserType!
+    getManyusers(data: UsersInput!): [UserType!]
   }
 
   type Mutation {
