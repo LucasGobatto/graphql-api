@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 
-import { LoginInput, LoginType, UserInput, UserType } from './schema.types';
+import { LoginInput, LoginType, CreateUserInput, UserType } from './schema.types';
 import { User } from '../entity/User';
 import { ValidateLoginUseCase, ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain';
 import { CryptoService } from '../chore/security/crypto';
@@ -8,7 +8,7 @@ import { JWTService } from '../chore/security/jwt';
 
 export const resolvers = {
   Mutation: {
-    createUser: async (_: any, { data: args }: { data: UserInput }): Promise<UserType> => {
+    createUser: async (_: any, { data: args }: { data: CreateUserInput }): Promise<UserType> => {
       const user = new User();
       user.email = args.email;
       user.password = args.password;

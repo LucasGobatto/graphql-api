@@ -1,23 +1,25 @@
 import { gql } from 'apollo-server-core';
 
 export const typeDefs = gql`
-  type Mutation {
-    login(data: LoginInput!): LoginType!
-    createUser(data: UserInput!): User!
-  }
-
   input LoginInput {
     email: String!
     password: String!
   }
 
-  input UserInput {
+  input CreateUserInput {
     name: String!
     password: String!
     email: String!
-    birthDate: String
     phone: String
-    avatar: String
+  }
+
+  input UserInput {
+    id: ID!
+  }
+
+  input UsersInput {
+    limit: Int = 10
+    offset: Int = 0
   }
 
   type LoginType {
@@ -25,12 +27,20 @@ export const typeDefs = gql`
     user: User
   }
 
-  type User {
+  type UserType {
     id: ID!
     name: String!
     email: String!
-    birthDate: String
     phone: String
-    avatar: String
+  }
+
+  type Query {
+    user(data: UserInput!): UserType!
+    users(data: UsersInput!): [UserType!]
+  }
+
+  type Mutation {
+    login(data: LoginInput!): LoginType!
+    createUser(data: CreateUserInput!): UserType!
   }
 `;
