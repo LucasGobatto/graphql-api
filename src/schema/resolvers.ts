@@ -1,8 +1,10 @@
 import { getRepository } from 'typeorm';
+
 import { LoginInput, LoginType, UserInput, UserType } from './schema.types';
 import { User } from '../entity/User';
 import { ValidateLoginUseCase, ValidateEmailUseCase, ValidatePasswordUseCase } from '../domain';
 import { CryptoService } from '../chore/security/crypto';
+import { JWTService } from '../chore/security/jwt';
 
 export const resolvers = {
   Query: {
@@ -39,7 +41,9 @@ export const resolvers = {
       const { password, email } = args;
 
       const user = await ValidateLoginUseCase.exec({ password, email });
-      const token = 'mocked_token';
+
+      const { id, name } = user;
+      const token = JWTService.sign({ name, id });
 
       return {
         token,
