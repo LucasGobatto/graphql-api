@@ -1,9 +1,9 @@
-import { CryptoService } from '../chore/security/crypto';
-import { UserType } from '../schema/schema.types';
+import { CryptoService } from '../../chore/security/crypto';
+import { UserType } from '../../schema/schema.types';
 import { getRepository } from 'typeorm';
-import { User } from '../entity/User';
+import { User } from '../../entity/User';
 
-async function exec({ password, email }: { password: string; email: string }): Promise<UserType> {
+export async function validateLogin({ password, email }: { password: string; email: string }): Promise<UserType> {
   const user = await getRepository(User).findOne({ email });
 
   if (!user) {
@@ -18,7 +18,3 @@ async function exec({ password, email }: { password: string; email: string }): P
 
   return user;
 }
-
-export const ValidateLoginUseCase = {
-  exec,
-};
