@@ -7,19 +7,13 @@ import { CryptoService } from '../chore/security/crypto';
 import { JWTService } from '../chore/security/jwt';
 
 export const resolvers = {
-  Query: {
-    hello: () => 'Hello World!',
-  },
-
   Mutation: {
     createUser: async (_: any, { data: args }: { data: UserInput }): Promise<UserType> => {
       const user = new User();
       user.email = args.email;
       user.password = args.password;
       user.name = args.name;
-      user.birthDate = args.birthDate;
       user.phone = args.phone;
-      user.avatar = args.avatar;
 
       const validEmail = ValidateEmailUseCase.exec(args.email);
 
