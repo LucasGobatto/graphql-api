@@ -1,5 +1,4 @@
 import * as jwt from 'jsonwebtoken';
-import { Context } from '../../schema/schema.types';
 
 interface TokenData {
   id: number;
@@ -13,17 +12,5 @@ export class JWTService {
 
   static verify(token: string) {
     return jwt.verify(token, process.env.SECRET!);
-  }
-}
-
-export function tryToAuthOrFail(context: Context) {
-  if (!context.token) {
-    throw new Error('Invalid Credentials');
-  }
-
-  try {
-    JWTService.verify(context.token);
-  } catch ({ message }) {
-    throw new Error(message);
   }
 }

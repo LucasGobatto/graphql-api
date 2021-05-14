@@ -1,5 +1,14 @@
-import { LoginInput, LoginType, CreateUserInput, UserType, UserInput, Context } from './schema.types';
-import { CreateUserUseCase, GetOneUserUseCase, LoginUseCase } from '../domain';
+import {
+  LoginInput,
+  LoginType,
+  CreateUserInput,
+  UserType,
+  UserInput,
+  Context,
+  UsersInput,
+  UsersType,
+} from './schema.types';
+import { CreateUserUseCase, GetOneUserUseCase, LoginUseCase, GetManyUsersUseCase } from '../domain';
 
 export const resolvers = {
   Mutation: {
@@ -15,6 +24,10 @@ export const resolvers = {
   Query: {
     getOneUser: async (_: any, { data }: { data: UserInput }, ctx: Context): Promise<UserType> => {
       return await GetOneUserUseCase.exec(data, ctx);
+    },
+
+    getManyUsers: async (_: any, { data }: { data: UsersInput }, ctx: Context): Promise<UsersType> => {
+      return await GetManyUsersUseCase.exec(data, ctx);
     },
   },
 };

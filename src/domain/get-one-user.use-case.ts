@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 
-import { tryToAuthOrFail } from '../chore/security/jwt';
+import { tryToAuthOrFail } from './validation/validate-token';
 import { User } from '../entity/User';
 import { UserInput, UserType, Context } from '../schema/schema.types';
 
