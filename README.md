@@ -1,19 +1,23 @@
 # GRAPHQL API
 
-A package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`. Based on https://github.com/w3cj/create-express-api
+A package that creates a simple GraphQL server template with [TypeScript](https://www.typescriptlang.org/), some schemas, authentication mode and token generation. The server will be hosted localy at `http://localhost:PORT/graphql`.
+
+Based on https://github.com/w3cj/create-express-api.
 
 # Environment and Tools
 
-- [NodeJs](https://nodejs.org/en/) v14.16.0
-- [TypeScript](https://www.typescriptlang.org/) v4.2.4
-- [Git](https://git-scm.com/) v2.30.1.windows.1
-- [npm](https://www.npmjs.com/) v7.6.0
-- [Docker](https://www.docker.com/) v20.10.6
-- [TypeORM](https://typeorm.io/#/) v0.2.32
+- [NodeJs](https://nodejs.org/en/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Git](https://git-scm.com/)
+- [npm](https://www.npmjs.com/)
+- [Docker](https://www.docker.com/)
+- [TypeORM](https://typeorm.io/#/)
+- [ApolloServer](https://www.apollographql.com/)
+- [GraphQL](https://graphql.org/)
 
 # Steps to Run and Debug
 
-- Run docker to create the databse image:
+- Run docker to run the database:
 
 ```
 npm run docker
