@@ -1,13 +1,13 @@
-import { ApolloServer } from "apollo-server-express";
-import { createServer } from "http";
-import express from "express";
-import dotenv from "dotenv";
+import { ApolloServer } from 'apollo-server-express';
+import { createServer } from 'http';
+import express from 'express';
+import dotenv from 'dotenv';
 
-import { Database } from "./database.config";
-import { resolvers, typeDefs } from "../schema";
+import { Database } from './database.config';
+import { resolvers, typeDefs } from '../schema';
 
 export const bootstrap = async () => {
-  const path = process.env.TEST === "OK" ? "./.test.env" : "./.env";
+  const path = process.env.TEST === 'OK' ? './.test.env' : './.env';
   dotenv.config({ path });
 
   const config = {
@@ -18,13 +18,17 @@ export const bootstrap = async () => {
   };
 
   await Database.config(config);
-  console.log("DB configured!");
+  console.log('DB configured!');
 
-  const server = new ApolloServer({ resolvers, typeDefs });
+  const server = new ApolloServer({
+    resolvers,
+    typeDefs,
+    context: ({ req }) => ({ token: req.headers.authorization }),
+  });
 
   const app = express();
 
-  server.applyMiddleware({ app, path: "/graphql" });
+  server.applyMiddleware({ app, path: '/graphql' });
 
   const PORT = process.env.PORT ?? 4000;
   const httpServer = createServer(app);

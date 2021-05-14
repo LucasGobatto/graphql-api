@@ -26,7 +26,18 @@ export interface UserType {
   phone?: string;
 }
 
+export interface UsersType {
+  users: UserType[];
+  count: number;
+  hasNextPage: boolean;
+  hasPreviusPage: boolean;
+}
+
 export interface LoginType {
   token: string;
   user?: UserType;
+}
+
+export interface Context {
+  token: string;
 }

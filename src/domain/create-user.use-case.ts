@@ -1,12 +1,20 @@
 import { getRepository } from 'typeorm';
 
+import { tryToAuthOrFail } from './validation/validate-token';
 import { CryptoService } from '../chore/security/crypto';
 import { User } from '../entity/User';
-import { CreateUserInput, UserType } from '../schema/schema.types';
+import { CreateUserInput, UserType, Context } from '../schema/schema.types';
 import { validateEmail, validatePassword, validatePhone } from './validation';
 
 export class CreateUserUseCase {
-  static async exec(data: CreateUserInput): Promise<UserType> {
+  static async exec(data: CreateUserInput, context: Context): Promise<UserType> {
+    tryToAuthOrFail(context);
+    const hasUser = await new this().findUserInDatabase(data.email);
+
+    if (hasUser) {
+      throw new Error('User already registred');
+    }
+
     const user = new User();
     user.email = data.email;
     user.password = data.password;
@@ -34,5 +42,11 @@ export class CreateUserUseCase {
     user.password = await CryptoService.hash(data.password);
 
     return await getRepository(User).save(user);
+  }
+
+  private async findUserInDatabase(email: string): Promise<boolean> {
+    const user = await getRepository(User).findOne({ email });
+
+    return !!user;
   }
 }

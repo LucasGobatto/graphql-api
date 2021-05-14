@@ -24,7 +24,7 @@ export const typeDefs = gql`
 
   type LoginType {
     token: String!
-    user: User
+    user: UserType
   }
 
   type UserType {
@@ -34,9 +34,16 @@ export const typeDefs = gql`
     phone: String
   }
 
+  type UsersType {
+    hasNextPage: Boolean!
+    hasPreviusPage: Boolean!
+    count: Int!
+    users: [UserType]!
+  }
+
   type Query {
     getOneUser(data: UserInput!): UserType!
-    getManyusers(data: UsersInput!): [UserType!]
+    getManyUsers(data: UsersInput!): UsersType!
   }
 
   type Mutation {
