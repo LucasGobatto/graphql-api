@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 
 import { Database } from './database.config';
 import { resolvers, typeDefs } from '../schema';
+import { formatError } from '../chore/errror';
 
 export const bootstrap = async () => {
   const path = process.env.TEST === 'OK' ? './.test.env' : './.env';
@@ -23,6 +24,7 @@ export const bootstrap = async () => {
   const server = new ApolloServer({
     resolvers,
     typeDefs,
+    formatError,
     context: ({ req }) => ({ token: req.headers.authorization }),
   });
 

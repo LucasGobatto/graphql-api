@@ -4,6 +4,7 @@ import { CryptoService } from '../chore/security/crypto';
 import { User } from '../entity/User';
 import { JWTService } from '../chore/security/jwt';
 import { LoginInput, LoginType, UserType } from '../schema/schema.types';
+import { AuthError, NotFoundError } from '../chore/errror';
 
 export class LoginUseCase {
   static async exec(data: LoginInput): Promise<LoginType> {
@@ -24,13 +25,13 @@ export class LoginUseCase {
     const user = await getRepository(User).findOne({ email });
 
     if (!user) {
-      throw new Error('User not found.');
+      throw new NotFoundError(undefined, 'User not found.');
     }
 
     const isValid = await CryptoService.verify(password, user.password);
 
     if (!isValid) {
-      throw new Error('Unauthorized. Invalid password');
+      throw new AuthError('Invalid password');
     }
 
     return user;
