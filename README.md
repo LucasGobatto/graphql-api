@@ -17,27 +17,35 @@ Based on https://github.com/w3cj/create-express-api.
 
 # Steps to Run and Debug
 
-- Run docker to run the database:
+Create `.env` file and set the environment variables following the `.samples.env` pattern.
+
+Install dependencies
 
 ```
-npm run docker
+$ npm install
 ```
 
-- To run the server in development mode for debug:
+Run docker to setup the database:
 
 ```
-npm run dev
+$ npm run docker
 ```
 
-- To deploy the server and run:
+To debug, run:
 
 ```
-npm run build
-npm start
+$ npm run dev
 ```
 
-- To apply Lint pattern to clean the code:
+To deploy the server and run:
 
 ```
-npm run lint
+$ npm run build
+$ npm start
+```
+
+To apply Lint pattern to clean the code:
+
+```
+$ npm run lint
 ```
