@@ -11,7 +11,7 @@ export interface LoginInput {
 }
 
 export interface UserInput {
-  id: number;
+  id: string;
 }
 
 export interface UsersInput {
@@ -20,7 +20,7 @@ export interface UsersInput {
 }
 
 export interface UserType {
-  id: number;
+  id: string;
   name: string;
   email: string;
   phone?: string;

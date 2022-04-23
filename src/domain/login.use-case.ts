@@ -1,16 +1,18 @@
-import { getRepository } from 'typeorm';
-
+import { Service } from 'typedi';
 import { CryptoService } from '../chore/security/crypto';
-import { User } from '../entity/User';
 import { JWTService } from '../chore/security/jwt';
-import { LoginInput, LoginType, UserType } from '../schema/schema.types';
-import { AuthError, NotFoundError } from '../chore/errror';
+import { LoginInput, LoginType, UserType } from '../api/schema/schema.types';
+import { AuthError, NotFoundError } from '../chore/error';
+import { UserDbDataSource } from '../data/source';
 
+@Service()
 export class LoginUseCase {
-  static async exec(data: LoginInput): Promise<LoginType> {
+  constructor(private readonly userDbDataSource: UserDbDataSource) {}
+
+  async exec(data: LoginInput): Promise<LoginType> {
     const { password, email } = data;
 
-    const user = await new this().validateLogin({ password, email });
+    const user = await this.validateLogin({ password, email });
 
     const { id, name } = user;
     const token = JWTService.sign({ name, id });
@@ -22,7 +24,7 @@ export class LoginUseCase {
   }
 
   private async validateLogin({ password, email }: { password: string; email: string }): Promise<UserType> {
-    const user = await getRepository(User).findOne({ email });
+    const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {
       throw new NotFoundError(undefined, 'User not found.');

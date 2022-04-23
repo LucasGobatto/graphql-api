@@ -1,20 +1,21 @@
 import { getRepository } from 'typeorm';
+import { Service } from 'typedi';
+import { UserInput, UserType } from '../api/schema/schema.types';
+import { InputError, NotFoundError } from '../chore/error';
+import { UserDbDataSource } from '../data/source';
 
-import { tryToAuthOrFail } from './validation/validate-token';
-import { User } from '../entity/User';
-import { UserInput, UserType, Context } from '../schema/schema.types';
-import { InputError, NotFoundError } from '../chore/errror';
-
+@Service()
 export class GetOneUserUseCase {
-  static async exec(data: UserInput, context: Context): Promise<UserType> {
-    tryToAuthOrFail(context);
+  constructor(private readonly userDbDataSource: UserDbDataSource) {}
+
+  async exec(data: UserInput): Promise<UserType> {
     const { id } = data;
 
-    if (id <= 0) {
+    if (!id) {
       throw new InputError(undefined, 'Invalid id');
     }
 
-    const user = await getRepository(User).findOne({ id });
+    const user = await this.userDbDataSource.findById(id);
 
     if (!user) {
       throw new NotFoundError();

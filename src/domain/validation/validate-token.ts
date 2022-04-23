@@ -1,6 +1,6 @@
-import { AuthError } from '../../chore/errror';
+import { AuthError } from '../../chore/error';
 import { JWTService } from '../../chore/security/jwt';
-import { Context } from '../../schema/schema.types';
+import { Context } from '../../api/schema/schema.types';
 
 export function tryToAuthOrFail(context: Context) {
   if (!context.token) {
@@ -9,7 +9,8 @@ export function tryToAuthOrFail(context: Context) {
 
   try {
     JWTService.verify(context.token);
-  } catch ({ message }) {
-    throw new AuthError(undefined, message);
+  } catch (e) {
+    const error = e as Error
+    throw new AuthError(undefined, error.message);
   }
 }

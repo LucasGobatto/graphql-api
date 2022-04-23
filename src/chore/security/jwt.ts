@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 
 interface TokenData {
-  id: number;
+  id: string;
   name: string;
 }
 

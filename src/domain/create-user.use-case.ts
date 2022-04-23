@@ -1,22 +1,25 @@
 import { getRepository } from 'typeorm';
 
-import { tryToAuthOrFail } from './validation/validate-token';
 import { CryptoService } from '../chore/security/crypto';
-import { User } from '../entity/User';
-import { CreateUserInput, UserType, Context } from '../schema/schema.types';
+import { UserEntity } from '../data/db/entity/user.entity';
+import { CreateUserInput, UserType } from '../api/schema/schema.types';
 import { validateEmail, validatePassword, validatePhone } from './validation';
-import { InputError } from '../chore/errror';
+import { InputError } from '../chore/error';
+import { Service } from 'typedi';
+import { UserDbDataSource } from '../data/source';
 
+@Service()
 export class CreateUserUseCase {
-  static async exec(data: CreateUserInput, context: Context): Promise<UserType> {
-    tryToAuthOrFail(context);
-    const hasUser = await new this().findUserInDatabase(data.email);
+  constructor(private readonly userDbDataSource: UserDbDataSource) {}
+
+  async exec(data: CreateUserInput): Promise<UserType> {
+    const hasUser = await this.findUserInDatabase(data.email);
 
     if (hasUser) {
       throw new InputError(undefined, 'User already registred');
     }
 
-    const user = new User();
+    const user = new UserEntity();
     user.email = data.email;
     user.password = data.password;
     user.name = data.name;
@@ -42,12 +45,10 @@ export class CreateUserUseCase {
 
     user.password = await CryptoService.hash(data.password);
 
-    return await getRepository(User).save(user);
+    return await getRepository(UserEntity).save(user);
   }
 
-  private async findUserInDatabase(email: string): Promise<boolean> {
-    const user = await getRepository(User).findOne({ email });
-
-    return !!user;
+  private findUserInDatabase(email: string): Promise<UserEntity | undefined> {
+    return this.userDbDataSource.findOneByEmail(email);
   }
 }

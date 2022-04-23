@@ -3,7 +3,10 @@
     "baseUrl": "./src",
     "target": "es5",
     "module": "commonjs",
-    "lib": ["dom", "es6"],
+    "lib": [
+      "dom",
+      "es6"
+    ],
     "strictPropertyInitialization": false,
     "outDir": "dist",
     "rootDir": "src",
@@ -15,6 +18,11 @@
     "emitDecoratorMetadata": true,
     "forceConsistentCasingInFileNames": true
   },
-  "exclude": ["node_modules"],
-  "include": ["src/**/*.ts", "src/domain/validation/validate-inputts"]
+  "exclude": [
+    "node_modules"
+  ],
+  "include": [
+    "src/**/*.ts",
+    "src/domain/validation/validate-inputts"
+  ]
 }
