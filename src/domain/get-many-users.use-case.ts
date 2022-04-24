@@ -1,13 +1,13 @@
 import { Service } from 'typedi';
 import { InputError } from '../chore/error';
-import { UsersInput, UsersType } from '../api/schema/schema.types';
+import { UsersInputModel, UsersTypeModel } from './model/user.model';
 import { UserDbDataSource } from '../data/source';
 
 @Service()
 export class GetManyUsersUseCase {
   constructor(private readonly userDbDataSource: UserDbDataSource) {}
 
-  async exec(data: UsersInput): Promise<UsersType> {
+  async exec(data: UsersInputModel): Promise<UsersTypeModel> {
 
     const take = data.limit ?? 10;
     const skip = data.offset ?? 0;
@@ -19,8 +19,8 @@ export class GetManyUsersUseCase {
     const [users, count] = await this.userDbDataSource.findAndCount({ take, skip });
 
     const hasNextPage = skip + take < count;
-    const hasPreviusPage = skip > 0;
+    const hasPreviousPage = skip > 0;
 
-    return { users, count, hasNextPage, hasPreviusPage };
+    return { users, count, hasNextPage, hasPreviousPage };
   }
 }

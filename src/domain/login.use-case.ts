@@ -1,7 +1,7 @@
 import { Service } from 'typedi';
 import { CryptoService } from '../chore/security/crypto';
 import { JWTService } from '../chore/security/jwt';
-import { LoginInput, LoginType, UserType } from '../api/schema/schema.types';
+import { LoginInputModel, LoginTypeModel, UserTypeModel } from './model/user.model';
 import { AuthError, NotFoundError } from '../chore/error';
 import { UserDbDataSource } from '../data/source';
 
@@ -9,7 +9,7 @@ import { UserDbDataSource } from '../data/source';
 export class LoginUseCase {
   constructor(private readonly userDbDataSource: UserDbDataSource) {}
 
-  async exec(data: LoginInput): Promise<LoginType> {
+  async exec(data: LoginInputModel): Promise<LoginTypeModel> {
     const { password, email } = data;
 
     const user = await this.validateLogin({ password, email });
@@ -23,7 +23,7 @@ export class LoginUseCase {
     };
   }
 
-  private async validateLogin({ password, email }: { password: string; email: string }): Promise<UserType> {
+  private async validateLogin({ password, email }: { password: string; email: string }): Promise<UserTypeModel> {
     const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {

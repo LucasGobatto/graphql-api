@@ -1,14 +1,11 @@
-import { ApolloServer } from 'apollo-server-express';
 import { createServer } from 'http';
 import express from 'express';
 import dotenv from 'dotenv';
 
 import { Database } from './data/db/config/database.config';
-import { resolvers, typeDefs } from './api/schema';
-import { formatError } from './chore/error';
+import { ServerSetup } from './api/graphql/config/setup';
 
 export async function bootstrap() {
-
   const path = process.env.TEST === 'OK' ? './.test.env' : './.env';
   dotenv.config({ path });
 
@@ -20,12 +17,8 @@ export async function bootstrap() {
   });
   console.log('DB configured!');
 
-  const server = new ApolloServer({
-    resolvers,
-    typeDefs,
-    formatError,
-    context: ({ req }) => ({ token: req.headers.authorization }),
-  });
+  const serverSetup = new ServerSetup()
+  const server = await serverSetup.config();
 
   const app = express();
 
