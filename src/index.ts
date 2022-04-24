@@ -1,10 +1,11 @@
 import "reflect-metadata";
 
-import { useContainer } from "typeorm";
-import { Container } from 'typedi';
+import { useContainer as useTypeContainer } from "typeorm";
+import { useContainer as useClassValidatorContainer } from "class-validator";
+import { Container } from 'typeorm-typedi-extensions';
 import { bootstrap } from "./bootstrap";
 
-
-useContainer(Container)
+useClassValidatorContainer(Container);
+useTypeContainer(Container);
 
 bootstrap();

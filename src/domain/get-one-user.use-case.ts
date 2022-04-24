@@ -1,6 +1,6 @@
 import { getRepository } from 'typeorm';
 import { Service } from 'typedi';
-import { UserInput, UserType } from '../api/schema/schema.types';
+import { UserInputModel, UserTypeModel } from './model/user.model';
 import { InputError, NotFoundError } from '../chore/error';
 import { UserDbDataSource } from '../data/source';
 
@@ -8,7 +8,7 @@ import { UserDbDataSource } from '../data/source';
 export class GetOneUserUseCase {
   constructor(private readonly userDbDataSource: UserDbDataSource) {}
 
-  async exec(data: UserInput): Promise<UserType> {
+  async exec(data: UserInputModel): Promise<UserTypeModel> {
     const { id } = data;
 
     if (!id) {
