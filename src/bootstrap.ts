@@ -8,7 +8,7 @@ import { ServerSetup } from './api/graphql/config/setup';
 export async function bootstrap() {
   const path = process.env.TEST === 'OK' ? './.test.env' : './.env';
   dotenv.config({ path });
-  
+
   await Database.config({
     port: +process.env.DATABASE_PORT!,
     username: process.env.DATABASE_USERNAME!,

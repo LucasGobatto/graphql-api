@@ -10,9 +10,10 @@ export const AuthMiddleware: AuthChecker<ServerContext> = ({ context }) => {
 
   try {
     JWTService.verify(context.token);
-    return true
+
+    return true;
   } catch (e) {
-    const error = e as Error
+    const error = e as Error;
     throw new AuthError(undefined, error.message);
   }
 }

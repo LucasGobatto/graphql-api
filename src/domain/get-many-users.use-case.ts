@@ -19,8 +19,8 @@ export class GetManyUsersUseCase {
     const [users, count] = await this.userDbDataSource.findAndCount({ take, skip });
 
     const hasNextPage = skip + take < count;
-    const hasPreviusPage = skip > 0;
+    const hasPreviousPage = skip > 0;
 
-    return { users, count, hasNextPage, hasPreviousPage: hasPreviusPage };
+    return { users, count, hasNextPage, hasPreviousPage };
   }
 }
