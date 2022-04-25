@@ -9,7 +9,6 @@ import {
 import { CreateUserInput, LoginInput, UserInput, UsersInput } from "./input";
 import { ServerContext } from "@domain/model/user.model";
 import { UsersType, UserType, LoginType } from "./type";
-import { LogRequest } from "@core/decorator";
 
 @Service()
 @Resolver()
@@ -23,7 +22,6 @@ export class UserResolver {
 
   @Query(() => UserType, { description: "fetch an especific user" })
   @Authorized()
-  @LogRequest("UserResolver")
   getOneUser(
     @Ctx() _ctx: ServerContext,
     @Arg("data") data: UserInput
@@ -34,7 +32,6 @@ export class UserResolver {
 
   @Query(() => UsersType, { description: "fetch many users" })
   @Authorized()
-  @LogRequest("UserResolver")
   getManyUsers(
     @Ctx() _ctx: ServerContext,
     @Arg("data") data: UsersInput
@@ -44,14 +41,12 @@ export class UserResolver {
   }
 
   @Mutation(() => UserType, { description: "create a new user" })
-  @LogRequest("UserResolver")
   createUser(@Arg("data") data: CreateUserInput): Promise<UserType> {
     console.info("createUser called with data", JSON.stringify(data));
     return this.createUserUseCase.exec(data);
   }
 
   @Mutation(() => LoginType, { description: "make login" })
-  @LogRequest("UserResolver")
   login(@Arg("data") data: LoginInput): Promise<LoginType> {
     console.info("login called with data", JSON.stringify(data));
     return this.loginUseCase.exec(data);

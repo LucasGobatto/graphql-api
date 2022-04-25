@@ -1,12 +1,4 @@
-import {
-  Controller,
-  Post,
-  Body,
-  Get,
-  UseBefore,
-  OnUndefined,
-  Param,
-} from "routing-controllers";
+import { Controller, Post, Body, Get } from "routing-controllers";
 import { Service } from "typedi";
 import {
   LoginUseCase,
@@ -18,13 +10,11 @@ import {
   CreateUserInputModel,
   LoginInputModel,
   LoginTypeModel,
+  UserInputModel,
   UsersInputModel,
   UsersTypeModel,
   UserTypeModel,
 } from "@domain/model/user.model";
-import { AuthorizationMiddleware } from "./authorization.decorator";
-import { LogRequest } from "@core/decorator/log-request.decorator";
-import { CheckBodyMiddleware } from "./check-body.middleware";
 
 @Controller()
 @Service()
@@ -37,30 +27,21 @@ export class UserController {
   ) {}
 
   @Post("/login")
-  @UseBefore(CheckBodyMiddleware)
-  @LogRequest("UserController")
-  @OnUndefined(401)
   login(@Body() data: LoginInputModel): Promise<LoginTypeModel> {
     return this.loginUseCase.exec(data);
   }
 
   @Post("/create-user")
-  @UseBefore(CheckBodyMiddleware)
-  @LogRequest("UserController")
   createUser(@Body() data: CreateUserInputModel): Promise<UserTypeModel> {
     return this.createUserUseCase.exec(data);
   }
 
-  @Get("/get-one-user/:id")
-  @UseBefore(AuthorizationMiddleware)
-  @LogRequest("UserController")
-  getOneUser(@Param("id") id: string): Promise<UserTypeModel> {
-    return this.getOneUserUseCase.exec({ id });
+  @Get("/get-one-user")
+  getOneUser(@Body() data: UserInputModel): Promise<UserTypeModel> {
+    return this.getOneUserUseCase.exec(data);
   }
 
   @Get("/get-many-user")
-  @UseBefore(AuthorizationMiddleware, CheckBodyMiddleware)
-  @LogRequest("UserController")
   getManyUsers(@Body() data: UsersInputModel): Promise<UsersTypeModel> {
     return this.getManyUsersUseCase.exec(data);
   }
