@@ -1,7 +1,7 @@
 import { Service } from "typedi";
-import { InputError } from "../chore/error";
+import { InputError } from "@core/error";
 import { UsersInputModel, UsersTypeModel } from "./model/user.model";
-import { UserDbDataSource } from "../data/source";
+import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class GetManyUsersUseCase {

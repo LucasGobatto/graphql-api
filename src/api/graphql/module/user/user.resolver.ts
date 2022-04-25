@@ -5,9 +5,9 @@ import {
   GetOneUserUseCase,
   LoginUseCase,
   GetManyUsersUseCase,
-} from "../../../../domain";
+} from "@domain";
 import { CreateUserInput, LoginInput, UserInput, UsersInput } from "./input";
-import { ServerContext } from "../../../../domain/model/user.model";
+import { ServerContext } from "@domain/model/user.model";
 import { UsersType, UserType, LoginType } from "./type";
 
 @Service()

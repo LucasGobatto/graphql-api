@@ -3,10 +3,7 @@
     "baseUrl": "./src",
     "target": "es5",
     "module": "commonjs",
-    "lib": [
-      "dom",
-      "es6"
-    ],
+    "lib": ["dom", "es6"],
     "strictPropertyInitialization": false,
     "outDir": "dist",
     "rootDir": "src",
@@ -16,13 +13,24 @@
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "forceConsistentCasingInFileNames": true
+    "forceConsistentCasingInFileNames": true,
+    "paths": {
+      "@core": ["./core"],
+      "@core/*": ["./core/*"],
+      "@data": ["./data"],
+      "@data/*": ["./data/*"],
+      "@entity": ["./data/db/entity"],
+      "@entity/*": ["./data/db/entity/*"],
+      "@domain": ["./domain"],
+      "@domain/*": ["./domain/*"],
+      "@graphql": ["./api/graphql"],
+      "@graphql/*": ["./api/graphql/*"],
+      "@rest": ["./api/rest"],
+      "@rest/*": ["./api/rest/*"],
+      "@test": ["./test"],
+      "@test/*": ["./test/*"]
+    }
   },
-  "exclude": [
-    "node_modules"
-  ],
-  "include": [
-    "src/**/*.ts",
-    "src/domain/validation/validate-inputts"
-  ]
+  "exclude": ["node_modules", "tsconfig-paths-bootstrap.js"],
+  "include": ["src/**/*.ts"]
 }

@@ -1,13 +1,13 @@
 import { Service } from "typedi";
-import { CryptoService } from "../chore/security/crypto";
-import { JWTService } from "../chore/security/jwt";
+import { CryptoService } from "@core/security/crypto";
+import { JWTService } from "@core/security/jwt";
 import {
   LoginInputModel,
   LoginTypeModel,
   UserTypeModel,
 } from "./model/user.model";
-import { AuthError, NotFoundError } from "../chore/error";
-import { UserDbDataSource } from "../data/source";
+import { AuthError, NotFoundError } from "@core/error";
+import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class LoginUseCase {

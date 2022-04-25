@@ -1,12 +1,12 @@
 import { getRepository } from "typeorm";
 
-import { CryptoService } from "../chore/security/crypto";
-import { UserEntity } from "../data/db/entity/user.entity";
+import { CryptoService } from "@core/security/crypto";
+import { UserEntity } from "@entity";
 import { CreateUserInputModel, UserTypeModel } from "./model/user.model";
 import { validateEmail, validatePassword, validatePhone } from "./validation";
-import { InputError } from "../chore/error";
+import { InputError } from "@core/error";
 import { Service } from "typedi";
-import { UserDbDataSource } from "../data/source";
+import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class CreateUserUseCase {
