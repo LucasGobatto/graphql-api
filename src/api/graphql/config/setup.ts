@@ -1,6 +1,6 @@
 import { ApolloServer } from "apollo-server-express";
 import { formatError } from "graphql";
-import path from "path";
+import * as path from "path";
 import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import { AuthMiddleware } from "./validate-token";

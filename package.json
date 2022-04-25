@@ -9,7 +9,7 @@
     "start": "npm run build && node dist/index.js",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "docker": "docker-compose up -d",
-    "test": "set TEST=OK && mocha -r ts-node/register src/test/index.ts"
+    "test": "mocha -r ts-node/register --delay src/index.ts --exit"
   },
   "dependencies": {
     "apollo-server-express": "2.24.0",

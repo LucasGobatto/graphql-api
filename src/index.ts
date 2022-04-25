@@ -8,4 +8,6 @@ import { bootstrap } from "./bootstrap";
 useClassValidatorContainer(Container);
 useContainer(Container);
 
-bootstrap();
+const isTest = process.argv[1].includes("mocha");
+
+bootstrap(isTest);

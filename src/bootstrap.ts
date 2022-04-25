@@ -4,9 +4,10 @@ import dotenv from "dotenv";
 
 import { Database } from "./data/db/config/database.config";
 import { ServerSetup } from "./api/graphql/config/setup";
+import { configTestPaths } from "./test";
 
-export async function bootstrap() {
-  const path = process.env.TEST === "OK" ? "./.test.env" : "./.env";
+export async function bootstrap(test = false) {
+  const path = test ? "./test.env" : "./.env";
   dotenv.config({ path });
 
   await Database.config({
@@ -20,8 +21,9 @@ export async function bootstrap() {
   const serverSetup = new ServerSetup();
   const server = await serverSetup.config();
 
-  const app = express();
+  await server.start();
 
+  const app = express();
   server.applyMiddleware({ app, path: "/graphql" });
 
   const PORT = process.env.PORT ?? 4000;
@@ -29,4 +31,8 @@ export async function bootstrap() {
 
   httpServer.listen(PORT);
   console.log(`Listen at http://localhost:${PORT}/graphql`);
+
+  if (test) {
+    configTestPaths().then(() => run());
+  }
 }
