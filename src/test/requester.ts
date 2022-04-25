@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export class Requester {
-  private baseUrl = `http:localhost:${process.env.PORT}/grapqhl`;
+  private baseUrl = `http:localhost:${process.env.PORT}/graphql`;
   private headers: any = {};
   private variables: any;
   private query: string;
@@ -28,7 +28,7 @@ export class Requester {
 
   setHeaders(headers: any) {
     this.headers = headers;
-    this;
+    return this;
   }
 
   setQuery(query: string) {
