@@ -3,12 +3,16 @@ import express from "express";
 import dotenv from "dotenv";
 
 import { Database } from "./data/db/config/database.config";
-import { ServerSetup } from "./api/graphql/config/setup";
+import { GraphQLServerSetup } from "./api/graphql/config/setup";
 import { configTestPaths } from "./test";
+import { RestServerSetup } from "@rest/config/setup";
 
 export async function bootstrap(test = false) {
   const path = test ? "./test.env" : "./.env";
   dotenv.config({ path });
+
+  const app = express();
+  const PORT = process.env.PORT ?? 4000;
 
   await Database.config({
     port: +process.env.DATABASE_PORT!,
@@ -18,15 +22,14 @@ export async function bootstrap(test = false) {
   });
   console.log("DB configured!");
 
-  const serverSetup = new ServerSetup();
-  const server = await serverSetup.config();
-
+  const graphQLServer = new GraphQLServerSetup();
+  const server = await graphQLServer.config();
   await server.start();
-
-  const app = express();
   server.applyMiddleware({ app, path: "/graphql" });
 
-  const PORT = process.env.PORT ?? 4000;
+  const restServer = new RestServerSetup();
+  await restServer.config(app);
+
   const httpServer = createServer(app);
 
   httpServer.listen(PORT);

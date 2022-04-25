@@ -5,8 +5,9 @@ import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import { AuthMiddleware } from "./validate-token";
 
-export class ServerSetup {
+export class GraphQLServerSetup {
   async config() {
+    console.log("configuring GraphQL server");
     const schema = await this.getSchema();
 
     return new ApolloServer({
