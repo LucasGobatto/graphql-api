@@ -33,6 +33,7 @@ export async function bootstrap(test = false) {
   console.log(`Listen at http://localhost:${PORT}/graphql`);
 
   if (test) {
-    configTestPaths().then(() => run());
+    await configTestPaths();
+    run();
   }
 }
