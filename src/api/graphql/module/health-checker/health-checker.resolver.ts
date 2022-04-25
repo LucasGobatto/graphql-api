@@ -1,6 +1,6 @@
-import { HealthCheckerModel } from "domain/model";
 import { Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
+import { HealthCheckerModel } from "@domain/model";
 import { HealthCheckerType } from "./health-checker.type";
 
 @Service()
@@ -8,6 +8,6 @@ import { HealthCheckerType } from "./health-checker.type";
 export class HealthCheckerResolver {
   @Query(() => HealthCheckerType)
   async healthChecker(): Promise<HealthCheckerModel> {
-    return { status: 'Ok' };
+    return { status: "Ok" };
   }
 }

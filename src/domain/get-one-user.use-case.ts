@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import { UserInputModel, UserTypeModel } from "./model/user.model";
-import { InputError, NotFoundError } from "../chore/error";
-import { UserDbDataSource } from "../data/source";
+import { InputError, NotFoundError } from "@core/error";
+import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class GetOneUserUseCase {

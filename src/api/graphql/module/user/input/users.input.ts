@@ -1,6 +1,6 @@
 import { IsNumber } from "class-validator";
 import { Field, InputType } from "type-graphql";
-import { UsersInputModel } from "../../../../../domain/model/user.model";
+import { UsersInputModel } from "@domain/model/user.model";
 
 @InputType()
 export class UsersInput implements UsersInputModel {

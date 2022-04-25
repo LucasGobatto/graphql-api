@@ -1,8 +1,8 @@
 import { Service } from "typedi";
 import { Repository } from "typeorm";
 import { InjectRepository } from "typeorm-typedi-extensions";
-import { UserEntity } from "../../data/db/entity/user.entity";
-import { PaginatedInputType } from "../../domain/model";
+import { UserEntity } from "@entity";
+import { PaginatedInputType } from "@domain/model";
 
 @Service()
 export class UserDbDataSource {
