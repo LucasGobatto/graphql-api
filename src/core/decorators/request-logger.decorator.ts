@@ -10,7 +10,7 @@ export function RequestLogger(className: string) {
           className,
         };
 
-        console.log(logParams);
+        console.log("[LOG] -", logParams);
         try {
           return await originalMethod.apply(this, args);
         } catch (e) {
