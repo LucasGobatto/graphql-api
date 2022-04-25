@@ -9,7 +9,7 @@ export class ServerSetup {
   async config() {
     const schema = await this.getSchema();
 
-    return new ApolloServer({    
+    return new ApolloServer({
       schema,
       formatError,
       context: ({ req }) => ({ token: req.headers.authorization }),
@@ -18,9 +18,11 @@ export class ServerSetup {
 
   private getSchema() {
     return buildSchema({
-      resolvers: [path.join(__dirname, '..', 'module' , '**', '*.resolver.{js,ts}')],
+      resolvers: [
+        path.join(__dirname, "..", "module", "**", "*.resolver.{js,ts}"),
+      ],
       container: Container,
       authChecker: AuthMiddleware,
-    })
+    });
   }
 }

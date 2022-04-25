@@ -1,12 +1,12 @@
-import { createServer } from 'http';
-import express from 'express';
-import dotenv from 'dotenv';
+import { createServer } from "http";
+import express from "express";
+import dotenv from "dotenv";
 
-import { Database } from './data/db/config/database.config';
-import { ServerSetup } from './api/graphql/config/setup';
+import { Database } from "./data/db/config/database.config";
+import { ServerSetup } from "./api/graphql/config/setup";
 
 export async function bootstrap() {
-  const path = process.env.TEST === 'OK' ? './.test.env' : './.env';
+  const path = process.env.TEST === "OK" ? "./.test.env" : "./.env";
   dotenv.config({ path });
 
   await Database.config({
@@ -15,18 +15,18 @@ export async function bootstrap() {
     password: process.env.DATABASE_PASSWORD!,
     database: process.env.DATABASE_NAME!,
   });
-  console.log('DB configured!');
+  console.log("DB configured!");
 
-  const serverSetup = new ServerSetup()
+  const serverSetup = new ServerSetup();
   const server = await serverSetup.config();
 
   const app = express();
 
-  server.applyMiddleware({ app, path: '/graphql' });
+  server.applyMiddleware({ app, path: "/graphql" });
 
   const PORT = process.env.PORT ?? 4000;
   const httpServer = createServer(app);
 
-  httpServer.listen(PORT)
+  httpServer.listen(PORT);
   console.log(`Listen at http://localhost:${PORT}/graphql`);
 }

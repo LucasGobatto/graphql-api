@@ -12,21 +12,26 @@ export class ServerTest {
   private app: Express;
   private server: Server;
 
-  async run(port = 8888) {
+  constructor() {
     this.app = express();
 
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+  }
+
+  async run(port = 8888) {
     this.server = this.app.listen(port);
 
     this.isStart = true;
   }
 
-  stop() {
+  async stop() {
     if (!this.isStart) {
       throw new Error("ServerTest is not online yet");
     }
 
     this.isStart = false;
-    this.server.close();
+    await this.server.close();
   }
 
   addRoute(options: RouteOptions) {

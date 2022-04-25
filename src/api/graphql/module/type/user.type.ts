@@ -3,15 +3,15 @@ import { UserTypeModel } from "../../../../domain/model/user.model";
 
 @ObjectType()
 export class UserType implements UserTypeModel {
-  @Field(() => String, { description: 'user id'})
+  @Field(() => String, { description: "user id" })
   id: string;
 
-  @Field(() => String, { description: 'user name' })
+  @Field(() => String, { description: "user name" })
   name: string;
 
-  @Field(() => String, { description: 'user e-mail'})
+  @Field(() => String, { description: "user e-mail" })
   email: string;
 
-  @Field(() => String, { description: 'user phone number'})
+  @Field(() => String, { description: "user phone number" })
   phone?: string;
 }
