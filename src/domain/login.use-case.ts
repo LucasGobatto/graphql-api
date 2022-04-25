@@ -37,7 +37,7 @@ export class LoginUseCase {
     const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {
-      throw new NotFoundError(undefined, "User not found.");
+      throw new NotFoundError(undefined, "User not found");
     }
 
     const isValid = await CryptoService.verify(password, user.password);
