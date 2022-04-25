@@ -23,6 +23,7 @@
     "jsonwebtoken": "8.5.1",
     "pg": "8.6.0",
     "reflect-metadata": "0.1.13",
+    "supertest": "6.2.2",
     "type-graphql": "1.1.1",
     "typedi": "0.10.0",
     "typeorm": "0.2.32",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "@types/express-serve-static-core": "4.17.28",
     "@types/express": "4.17.11",
+    "@types/supertest": "2.0.12",
     "@types/chai": "4.3.1",
     "@types/jsonwebtoken": "8.5.1",
     "@types/mocha": "9.1.1",

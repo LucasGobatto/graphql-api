@@ -25,7 +25,7 @@ export class ServerTest {
     this.isStart = true;
   }
 
-  stop() {
+  async stop() {
     if (!this.isStart) {
       throw new Error("ServerTest is not online yet");
     }
@@ -34,7 +34,7 @@ export class ServerTest {
     this.server.close();
   }
 
-  addRoute(options: RouteOptions) {
+  async addRoute(options: RouteOptions) {
     const { method, path, handler } = options;
 
     this.app[method](path, handler);

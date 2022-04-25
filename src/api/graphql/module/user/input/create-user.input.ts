@@ -1,6 +1,6 @@
 import { IsEmail } from "class-validator";
 import { Field, InputType } from "type-graphql";
-import { CreateUserInputModel } from "../../../../domain/model/user.model";
+import { CreateUserInputModel } from "../../../../../domain/model/user.model";
 
 @InputType()
 export class CreateUserInput implements CreateUserInputModel {
