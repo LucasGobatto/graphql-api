@@ -46,6 +46,7 @@ export class LoginUseCase {
       throw new AuthError("Invalid password");
     }
 
+    delete user.password;
     return user;
   }
 }

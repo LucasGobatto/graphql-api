@@ -1,4 +1,10 @@
-import { Controller, Post, Body, Get } from "routing-controllers";
+import {
+  Post,
+  Body,
+  Get,
+  UseBefore,
+  JsonController,
+} from "routing-controllers";
 import { Service } from "typedi";
 import {
   LoginUseCase,
@@ -16,9 +22,10 @@ import {
   UserTypeModel,
 } from "@domain/model/user.model";
 import { RequestLogger } from "@core/decorators";
+import { AuthMiddleware } from "@rest/middlewares";
 
-@Controller()
 @Service()
+@JsonController()
 export class UserController {
   constructor(
     private readonly loginUseCase: LoginUseCase,
@@ -40,12 +47,14 @@ export class UserController {
   }
 
   @Get("/get-one-user")
+  @UseBefore(AuthMiddleware)
   @RequestLogger("UserController")
   getOneUser(@Body() data: UserInputModel): Promise<UserTypeModel> {
     return this.getOneUserUseCase.exec(data);
   }
 
-  @Get("/get-many-user")
+  @Get("/get-many-users")
+  @UseBefore(AuthMiddleware)
   @RequestLogger("UserController")
   getManyUsers(@Body() data: UsersInputModel): Promise<UsersTypeModel> {
     return this.getManyUsersUseCase.exec(data);
