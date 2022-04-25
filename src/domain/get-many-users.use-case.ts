@@ -23,6 +23,10 @@ export class GetManyUsersUseCase {
     const hasNextPage = skip + take < count;
     const hasPreviousPage = skip > 0;
 
+    users.forEach((user) => {
+      delete user?.password;
+    });
+
     return { users, count, hasNextPage, hasPreviousPage };
   }
 }

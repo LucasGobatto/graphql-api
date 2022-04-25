@@ -20,6 +20,7 @@ export class GetOneUserUseCase {
       throw new NotFoundError();
     }
 
+    delete user.password;
     return user;
   }
 }
