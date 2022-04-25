@@ -6,7 +6,7 @@ import {
   LoginTypeModel,
   UserTypeModel,
 } from "./model/user.model";
-import { AuthError, NotFoundError } from "@core/error";
+import { AuthError } from "@core/error";
 import { UserDbDataSource } from "@data/source";
 
 @Service()
@@ -37,13 +37,13 @@ export class LoginUseCase {
     const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {
-      throw new NotFoundError(undefined, "User not found");
+      throw new AuthError("Invalid credentials");
     }
 
     const isValid = await CryptoService.verify(password, user.password);
 
     if (!isValid) {
-      throw new AuthError("Invalid password");
+      throw new AuthError("Invalid credentials");
     }
 
     delete user.password;

@@ -4,6 +4,7 @@ import {
   Get,
   UseBefore,
   JsonController,
+  UseAfter,
 } from "routing-controllers";
 import { Service } from "typedi";
 import {
@@ -22,10 +23,11 @@ import {
   UserTypeModel,
 } from "@domain/model/user.model";
 import { RequestLogger } from "@core/decorators";
-import { AuthMiddleware } from "@rest/middlewares";
+import { AuthMiddleware, FormatErrorMiddleware } from "@rest/middlewares";
 
 @Service()
 @JsonController()
+@UseAfter(FormatErrorMiddleware)
 export class UserController {
   constructor(
     private readonly loginUseCase: LoginUseCase,
