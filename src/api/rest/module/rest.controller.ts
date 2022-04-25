@@ -15,6 +15,7 @@ import {
   UsersTypeModel,
   UserTypeModel,
 } from "@domain/model/user.model";
+import { RequestLogger } from "@core/decorators";
 
 @Controller()
 @Service()
@@ -27,21 +28,25 @@ export class UserController {
   ) {}
 
   @Post("/login")
+  @RequestLogger("UserController")
   login(@Body() data: LoginInputModel): Promise<LoginTypeModel> {
     return this.loginUseCase.exec(data);
   }
 
   @Post("/create-user")
+  @RequestLogger("UserController")
   createUser(@Body() data: CreateUserInputModel): Promise<UserTypeModel> {
     return this.createUserUseCase.exec(data);
   }
 
   @Get("/get-one-user")
+  @RequestLogger("UserController")
   getOneUser(@Body() data: UserInputModel): Promise<UserTypeModel> {
     return this.getOneUserUseCase.exec(data);
   }
 
   @Get("/get-many-user")
+  @RequestLogger("UserController")
   getManyUsers(@Body() data: UsersInputModel): Promise<UsersTypeModel> {
     return this.getManyUsersUseCase.exec(data);
   }
