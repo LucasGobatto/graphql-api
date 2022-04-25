@@ -1,7 +1,7 @@
-import * as path from 'path';
-import * as glob from 'glob';
+import * as path from "path";
+import * as glob from "glob";
 
-const filesTestPath = glob.sync('src/**/*test.ts');
+const filesTestPath = glob.sync("src/**/*test.ts");
 
-const basePath = path.join(__dirname, '..', '..')
-filesTestPath.forEach((file) => require(path.join(basePath, file)))
+const basePath = path.join(__dirname, "..", "..");
+filesTestPath.forEach((file) => require(path.join(basePath, file)));

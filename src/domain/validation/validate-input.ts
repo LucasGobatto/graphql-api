@@ -11,16 +11,16 @@ function validLength(value: string): boolean {
 }
 
 function hasAt(value: string): boolean {
-  return value.indexOf('@') !== -1;
+  return value.indexOf("@") !== -1;
 }
 
 function hasDotCom(value: string): boolean {
-  return value.indexOf('.com') !== -1;
+  return value.indexOf(".com") !== -1;
 }
 
 function validEmail(value: string): boolean {
-  const peace = value.replace('@', ' ').split(' ');
-  return !!peace[0].length && !!peace[1]?.replace('.com', '')?.length;
+  const peace = value.replace("@", " ").split(" ");
+  return !!peace[0].length && !!peace[1]?.replace(".com", "")?.length;
 }
 
 export function validatePhone(phone: string): boolean {

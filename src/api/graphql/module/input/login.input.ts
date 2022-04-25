@@ -4,10 +4,10 @@ import { LoginInputModel } from "../../../../domain/model/user.model";
 
 @InputType()
 export class LoginInput implements LoginInputModel {
-  @Field({ description: 'user email'})
+  @Field({ description: "user email" })
   @IsEmail()
   email: string;
 
-  @Field({ description: 'user password' })
+  @Field({ description: "user password" })
   password: string;
 }

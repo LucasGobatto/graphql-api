@@ -12,9 +12,14 @@ export class ServerTest {
   private app: Express;
   private server: Server;
 
-  async run(port = 8888) {
+  constructor() {
     this.app = express();
 
+    this.app.use(express.json());
+    this.app.use(express.urlencoded({ extended: true }));
+  }
+
+  async run(port = 8888) {
     this.server = this.app.listen(port);
 
     this.isStart = true;

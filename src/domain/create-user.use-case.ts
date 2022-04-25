@@ -1,12 +1,12 @@
-import { getRepository } from 'typeorm';
+import { getRepository } from "typeorm";
 
-import { CryptoService } from '../chore/security/crypto';
-import { UserEntity } from '../data/db/entity/user.entity';
-import { CreateUserInputModel, UserTypeModel } from './model/user.model';
-import { validateEmail, validatePassword, validatePhone } from './validation';
-import { InputError } from '../chore/error';
-import { Service } from 'typedi';
-import { UserDbDataSource } from '../data/source';
+import { CryptoService } from "../chore/security/crypto";
+import { UserEntity } from "../data/db/entity/user.entity";
+import { CreateUserInputModel, UserTypeModel } from "./model/user.model";
+import { validateEmail, validatePassword, validatePhone } from "./validation";
+import { InputError } from "../chore/error";
+import { Service } from "typedi";
+import { UserDbDataSource } from "../data/source";
 
 @Service()
 export class CreateUserUseCase {
@@ -16,7 +16,7 @@ export class CreateUserUseCase {
     const hasUser = await this.findUserInDatabase(data.email);
 
     if (hasUser) {
-      throw new InputError(undefined, 'User already registred');
+      throw new InputError(undefined, "User already registred");
     }
 
     const user = new UserEntity();
@@ -28,18 +28,18 @@ export class CreateUserUseCase {
     const validEmail = validateEmail(data.email);
 
     if (!validEmail) {
-      throw new InputError(undefined, 'Invalid e-mail');
+      throw new InputError(undefined, "Invalid e-mail");
     }
 
     const validPassword = validatePassword(data.password);
     if (!validPassword) {
-      throw new InputError(undefined, 'Invalid password');
+      throw new InputError(undefined, "Invalid password");
     }
 
     if (data.phone) {
       const validPhone = validatePhone(data.phone);
       if (!validPhone) {
-        throw new InputError(undefined, 'Invalid phone number');
+        throw new InputError(undefined, "Invalid phone number");
       }
     }
 

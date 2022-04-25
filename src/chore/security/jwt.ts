@@ -1,4 +1,4 @@
-import * as jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 
 interface TokenData {
   id: string;
@@ -7,7 +7,9 @@ interface TokenData {
 
 export class JWTService {
   static sign(data: TokenData): string {
-    return jwt.sign({ data }, process.env.SECRET!, { expiresIn: process.env.EXPIRATION });
+    return jwt.sign({ data }, process.env.SECRET!, {
+      expiresIn: process.env.EXPIRATION,
+    });
   }
 
   static verify(token: string) {

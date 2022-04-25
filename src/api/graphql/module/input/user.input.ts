@@ -3,6 +3,6 @@ import { UserInputModel } from "../../../../domain/model/user.model";
 
 @InputType()
 export class UserInput implements UserInputModel {
-  @Field({ defaultValue: 'user id' })
+  @Field({ defaultValue: "user id" })
   id: string;
 }

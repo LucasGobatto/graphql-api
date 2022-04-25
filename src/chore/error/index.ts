@@ -1,4 +1,4 @@
-import { GraphQLError } from 'graphql';
+import { GraphQLError } from "graphql";
 
 abstract class BaseError extends Error {
   public readonly base: boolean = true;
@@ -14,19 +14,19 @@ abstract class BaseError extends Error {
 
 export class AuthError extends BaseError {
   constructor(message?: string, details?: string) {
-    super(message ?? 'Invalid credentials', 401, details ?? 'Unauthorized');
+    super(message ?? "Invalid credentials", 401, details ?? "Unauthorized");
   }
 }
 
 export class NotFoundError extends BaseError {
   constructor(message?: string, details?: string) {
-    super(message ?? 'User not found', 404, details ?? 'User not found');
+    super(message ?? "User not found", 404, details ?? "User not found");
   }
 }
 
 export class InputError extends BaseError {
   constructor(messege?: string, details?: string) {
-    super(messege ?? 'Invalid Input', 400, details);
+    super(messege ?? "Invalid Input", 400, details);
   }
 }
 
@@ -35,7 +35,7 @@ export const formatError = (error: GraphQLError) => {
 
   if (!originalError?.base) {
     return {
-      message: 'Unexpected Error. Something is wrong',
+      message: "Unexpected Error. Something is wrong",
       code: 500,
       details: error.message,
     };

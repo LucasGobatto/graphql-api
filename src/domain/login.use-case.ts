@@ -1,9 +1,13 @@
-import { Service } from 'typedi';
-import { CryptoService } from '../chore/security/crypto';
-import { JWTService } from '../chore/security/jwt';
-import { LoginInputModel, LoginTypeModel, UserTypeModel } from './model/user.model';
-import { AuthError, NotFoundError } from '../chore/error';
-import { UserDbDataSource } from '../data/source';
+import { Service } from "typedi";
+import { CryptoService } from "../chore/security/crypto";
+import { JWTService } from "../chore/security/jwt";
+import {
+  LoginInputModel,
+  LoginTypeModel,
+  UserTypeModel,
+} from "./model/user.model";
+import { AuthError, NotFoundError } from "../chore/error";
+import { UserDbDataSource } from "../data/source";
 
 @Service()
 export class LoginUseCase {
@@ -23,17 +27,23 @@ export class LoginUseCase {
     };
   }
 
-  private async validateLogin({ password, email }: { password: string; email: string }): Promise<UserTypeModel> {
+  private async validateLogin({
+    password,
+    email,
+  }: {
+    password: string;
+    email: string;
+  }): Promise<UserTypeModel> {
     const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {
-      throw new NotFoundError(undefined, 'User not found.');
+      throw new NotFoundError(undefined, "User not found.");
     }
 
     const isValid = await CryptoService.verify(password, user.password);
 
     if (!isValid) {
-      throw new AuthError('Invalid password');
+      throw new AuthError("Invalid password");
     }
 
     return user;
