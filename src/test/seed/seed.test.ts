@@ -1,26 +1,25 @@
-import { UserEntity } from "@data/db/entity";
 import { expect } from "chai";
 import Container from "typedi";
-import { getRepository, Repository } from "typeorm";
 import { Seed } from "./seed";
+import { Repositories } from "@data/db/repositories";
 
 describe("Unit - Test - Seed", () => {
   let seed: Seed;
-  let repostiory: Repository<UserEntity>;
+  let repositories: Repositories;
 
   before(() => {
     seed = Container.get(Seed);
-    repostiory = getRepository(UserEntity);
+    repositories = Container.get(Repositories);
   });
 
   afterEach(async () => {
-    await repostiory.clear();
+    await Repositories.clear();
   });
 
   it("should populate one user correctly", async () => {
     const users = await seed.userSeed.create([{}]);
 
-    const user = await repostiory.findOne(users[0].id);
+    const user = await repositories.userRespository.findOne(users[0].id);
 
     expect(users).to.have.lengthOf(1);
     expect(user).to.not.be.undefined;
@@ -32,7 +31,9 @@ describe("Unit - Test - Seed", () => {
   it("should populate 5 users correctly", async () => {
     const seedUsers = await seed.userSeed.create();
 
-    const users = await repostiory.findByIds(seedUsers.map(({ id }) => id));
+    const users = await repositories.userRespository.findByIds(
+      seedUsers.map(({ id }) => id)
+    );
 
     expect(users).to.have.lengthOf(5);
     expect(seedUsers).to.have.lengthOf(5);
