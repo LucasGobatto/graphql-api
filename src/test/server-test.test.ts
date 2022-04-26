@@ -7,7 +7,8 @@ describe("Unit - Test - ServerTest", () => {
   let serverTest: ServerTest;
   const response = { bar: "bar" };
   const body = { foo: "foo" };
-  const url = "http://localhost:8888";
+  const port = 9899;
+  const url = `http://localhost:${port}`;
 
   beforeEach(async () => {
     serverTest = new ServerTest();
@@ -25,7 +26,7 @@ describe("Unit - Test - ServerTest", () => {
   });
 
   it("should add a route and fetch result successfully", async () => {
-    await serverTest.run();
+    await serverTest.run(port);
     const handler = async (req: Request, res: Response) => {
       expect(req.body).to.be.deep.eq(body);
       res.json(response);
@@ -45,7 +46,7 @@ describe("Unit - Test - ServerTest", () => {
   });
 
   it("should not found route and throw an error", async () => {
-    await serverTest.run();
+    await serverTest.run(port);
 
     try {
       await axios.get(`${url}/path`, { data: body });
