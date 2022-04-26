@@ -43,17 +43,9 @@ describe("Unit - Test - Seed", () => {
 
     const [user] = await seed.userSeed.create([{ password: hashedPassword }]);
 
-    const { id, createdAt, updatedAt } = await repostiory.findOne(user.id);
-
-    // todo - fix this
-    expect(user).to.be.deep.eq({
-      id,
-      createdAt,
-      updatedAt,
-      name: "User Name 1",
-      email: "fake1@email.com",
-      password: hashedPassword,
-      phone: "99999999999",
-    });
+    expect(user.name).to.be.eq("User Name 1");
+    expect(user.email).to.be.eq("fake1@email.com");
+    expect(user.password).to.be.eq(hashedPassword);
+    expect(user.phone).to.be.eq("99999999999");
   });
 });
