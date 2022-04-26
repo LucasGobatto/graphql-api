@@ -28,7 +28,7 @@ export class Requester {
 
     const response = await requester.send({ query, variables });
 
-    return { data: response.body?.data, error: response.body?.error };
+    return { data: response.body.data, error: response.body.error };
   }
 
   async makeRestRequest<T>(
