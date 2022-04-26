@@ -1,9 +1,9 @@
-import { Seed } from "@test/seed";
-import { UserEntity } from "@entity";
-import { Repositories } from ".";
 import Container from "typedi";
 import { getRepository, Repository } from "typeorm";
 import { expect } from "chai";
+import { Seed } from "@test/seed";
+import { UserEntity } from "@entity";
+import { Repositories } from "./repositories";
 
 describe("Unit - Data - Repositories", async () => {
   let seed: Seed;
