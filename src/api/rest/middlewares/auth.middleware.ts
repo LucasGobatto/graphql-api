@@ -2,8 +2,12 @@ import { ExpressMiddlewareInterface } from "routing-controllers";
 import { Request, Response } from "express";
 import { AuthError } from "@core/error";
 import { JWTService } from "@core/security/jwt";
+import { Service } from "typedi";
 
+@Service()
 export class AuthMiddleware implements ExpressMiddlewareInterface {
+  constructor(private readonly jwtService: JWTService) {}
+
   async use(
     request: Request,
     response: Response,
@@ -16,7 +20,7 @@ export class AuthMiddleware implements ExpressMiddlewareInterface {
         throw new AuthError();
       }
 
-      JWTService.verify(token);
+      this.jwtService.verify(token);
 
       next();
     } catch (e) {

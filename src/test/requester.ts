@@ -1,5 +1,7 @@
+import { PORT } from "@core/env/env.config";
 import axios, { AxiosResponse } from "axios";
 import request from "supertest";
+import Container from "typedi";
 
 export type HttpMethods = "GET" | "POST" | "DELETE" | "PATCH";
 
@@ -14,7 +16,8 @@ export class Requester {
   private token: string;
 
   constructor() {
-    this.baseUrl = `http://localhost:${process.env.PORT}`;
+    const port = Container.get(PORT);
+    this.baseUrl = `http://localhost:${port}`;
   }
 
   async makeGraphQLRequest<T>(

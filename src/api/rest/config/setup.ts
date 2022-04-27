@@ -4,7 +4,7 @@ import { useExpressServer } from "routing-controllers";
 
 export class RestServerSetup {
   async config(app: express.Express) {
-    console.log("configuring Rest server");
+    console.log("Configuring Rest server");
 
     return useExpressServer(app, {
       controllers: [path.join(__dirname, "..", "**/*.controller.{ts,js}")],

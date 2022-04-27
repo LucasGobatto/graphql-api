@@ -7,7 +7,7 @@ import { AuthMiddleware } from "./validate-token";
 
 export class GraphQLServerSetup {
   async config() {
-    console.log("configuring GraphQL server");
+    console.log("Configuring GraphQL server");
     const schema = await this.getSchema();
 
     return new ApolloServer({
