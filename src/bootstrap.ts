@@ -14,6 +14,7 @@ import {
   PORT,
 } from "@core/env/env.config";
 import Container from "typedi";
+import { logger } from "@core/logger";
 
 export async function bootstrap(test = false) {
   try {

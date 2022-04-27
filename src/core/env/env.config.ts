@@ -1,5 +1,6 @@
 import { Container, Token } from "typedi";
 import dotenv from "dotenv";
+import { logger } from "@core/logger";
 
 export const PORT = new Token<number>("PORT");
 export const DATABASE_PORT = new Token<number>("DATABASE_PORT");
@@ -11,7 +12,7 @@ export const EXPIRATION = new Token<string>("EXPIRATION");
 
 export class EnvConfig {
   configure(test: boolean) {
-    console.log("Configuring env");
+    logger.log("Configuring env");
 
     const path = test ? "./test.env" : "./.env";
     dotenv.config({ path });
