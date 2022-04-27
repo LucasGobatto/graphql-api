@@ -14,6 +14,6 @@ export class CreateUserInput implements CreateUserInputModel {
   @IsEmail()
   email: string;
 
-  @Field({ description: "user phone number" })
+  @Field({ nullable: true, description: "user phone number" })
   phone?: string;
 }

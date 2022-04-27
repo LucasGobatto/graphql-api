@@ -7,7 +7,11 @@ export type HttpMethods = "GET" | "POST" | "DELETE" | "PATCH";
 
 interface GraphqlResponse<T> {
   data: T;
-  error: any;
+  errors: {
+    message: string;
+    code: number;
+    details: string;
+  }[];
 }
 
 export class Requester {
@@ -31,7 +35,7 @@ export class Requester {
 
     const response = await requester.send({ query, variables });
 
-    return { data: response.body.data, error: response.body.error };
+    return { data: response.body.data, errors: response.body.errors };
   }
 
   async makeRestRequest<T>(

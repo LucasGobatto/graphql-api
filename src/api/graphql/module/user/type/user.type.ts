@@ -12,6 +12,6 @@ export class UserType implements UserTypeModel {
   @Field(() => String, { description: "user e-mail" })
   email: string;
 
-  @Field(() => String, { description: "user phone number" })
+  @Field(() => String, { nullable: true, description: "user phone number" })
   phone?: string;
 }

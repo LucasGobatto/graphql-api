@@ -28,7 +28,6 @@ export class UserResolver {
     @Ctx() _ctx: ServerContext,
     @Arg("data") data: UserInput
   ): Promise<UserType> {
-    console.info("getOneUser called with data", JSON.stringify(data));
     return this.getOneUserUseCase.exec(data);
   }
 
@@ -39,21 +38,18 @@ export class UserResolver {
     @Ctx() _ctx: ServerContext,
     @Arg("data") data: UsersInput
   ): Promise<UsersType> {
-    console.info("getManyUsers called with data", JSON.stringify(data));
     return this.getManyUsersUseCase.exec(data);
   }
 
   @Mutation(() => UserType, { description: "create a new user" })
   @RequestLogger("UserResolver")
   createUser(@Arg("data") data: CreateUserInput): Promise<UserType> {
-    console.info("createUser called with data", JSON.stringify(data));
     return this.createUserUseCase.exec(data);
   }
 
   @Mutation(() => LoginType, { description: "make login" })
   @RequestLogger("UserResolver")
   login(@Arg("data") data: LoginInput): Promise<LoginType> {
-    console.info("login called with data", JSON.stringify(data));
     return this.loginUseCase.exec(data);
   }
 }
