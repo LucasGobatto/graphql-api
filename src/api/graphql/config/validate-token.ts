@@ -5,7 +5,7 @@ import { ServerContext } from "@domain/model/user.model";
 
 export const AuthMiddleware: AuthChecker<ServerContext> = ({ context }) => {
   if (!context.token) {
-    throw new AuthError(undefined, "There is no token");
+    throw new AuthError("There is no token");
   }
 
   try {
@@ -14,6 +14,6 @@ export const AuthMiddleware: AuthChecker<ServerContext> = ({ context }) => {
     return true;
   } catch (e) {
     const error = e as Error;
-    throw new AuthError(undefined, error.message);
+    throw new AuthError(error.message);
   }
 };

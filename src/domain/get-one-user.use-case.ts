@@ -11,13 +11,13 @@ export class GetOneUserUseCase {
     const { id } = data;
 
     if (!id) {
-      throw new InputError(undefined, "Invalid id");
+      throw new InputError("Invalid id");
     }
 
     const user = await this.userDbDataSource.findById(id);
 
     if (!user) {
-      throw new NotFoundError();
+      throw new NotFoundError("User not found");
     }
 
     delete user.password;

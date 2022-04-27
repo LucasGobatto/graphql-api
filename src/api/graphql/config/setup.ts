@@ -1,5 +1,5 @@
 import { ApolloServer } from "apollo-server-express";
-import { formatError } from "graphql";
+import { formatError } from "@core/error";
 import * as path from "path";
 import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
