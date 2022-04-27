@@ -46,10 +46,11 @@ export async function bootstrap(test = false) {
   const httpServer = createServer(app);
 
   httpServer.listen(port);
-  console.log(`Listen at http://localhost:${port}/graphql\n`);
+  console.log(`Listen at http://localhost:${port}/graphql`);
 
   if (test) {
     await configTestPaths();
     run();
   }
+  console.log();
 }
