@@ -112,7 +112,7 @@ describe("Graphql - UserResolver - CreateUser", () => {
       {
         message: "Invalid Input",
         code: 400,
-        details: "User already registred",
+        details: "Invalid e-mail",
       },
     ]);
   });
@@ -128,11 +128,10 @@ describe("Graphql - UserResolver - CreateUser", () => {
     });
 
     expect(user).to.be.undefined;
-    // todo fix this - throw 400
     expect(response.errors).to.be.deep.eq([
       {
-        message: "Unexpected Error. Something is wrong",
-        code: 500,
+        message: "Invalid input",
+        code: 401,
         details: "Argument Validation Error",
       },
     ]);
