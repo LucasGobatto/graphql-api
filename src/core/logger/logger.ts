@@ -1,4 +1,4 @@
-import { Service } from "typedi";
+import { EnvConfig } from "@core/env/env.config";
 
 enum LogLevel {
   Error = "error",
@@ -13,23 +13,19 @@ interface LoggerError {
   error: Error;
 }
 
-@Service()
 export class Logger {
   private readonly logLevel: LogLevel;
   private readonly logHierachy: number;
 
   constructor() {
-    this.logLevel = (process.env.LOG_LEVEL ?? null) as LogLevel;
+    this.logLevel = EnvConfig.get("LOG_LEVEL") as LogLevel;
+    console.log(this.logLevel);
     this.logHierachy = Object.values(LogLevel).indexOf(this.logLevel);
   }
 
-  log(data?: any) {
+  log(data: any) {
     if (this.logHierachy >= 1) {
-      if (data) {
-        console.log(`[LOG] - ${data}`);
-      } else {
-        console.log();
-      }
+      console.log(`[LOG] - ${data}`);
     }
   }
 

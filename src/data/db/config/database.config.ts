@@ -1,3 +1,4 @@
+import { logger } from "@core/logger";
 import { Connection, createConnection } from "typeorm";
 
 interface DatabaseParams {
@@ -9,6 +10,8 @@ interface DatabaseParams {
 
 export class Database {
   static async config(param: DatabaseParams): Promise<Connection> {
+    logger.log("Configuring DB");
+
     return createConnection({
       type: "postgres",
       host: "localhost",

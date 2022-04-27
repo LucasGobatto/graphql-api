@@ -13,8 +13,7 @@ import {
   EnvConfig,
   PORT,
 } from "@core/env/env.config";
-import Container from "typedi";
-import { logger } from "@core/logger";
+import { Container } from "typedi";
 
 export async function bootstrap(test = false) {
   try {
