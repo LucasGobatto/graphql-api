@@ -11,7 +11,10 @@ import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class LoginUseCase {
-  constructor(private readonly userDbDataSource: UserDbDataSource) {}
+  constructor(
+    private readonly userDbDataSource: UserDbDataSource,
+    private readonly jwtService: JWTService
+  ) {}
 
   async exec(data: LoginInputModel): Promise<LoginTypeModel> {
     const { password, email } = data;
@@ -19,7 +22,7 @@ export class LoginUseCase {
     const user = await this.validateLogin({ password, email });
 
     const { id, name } = user;
-    const token = JWTService.sign({ name, id });
+    const token = this.jwtService.sign({ name, id });
 
     return {
       token,

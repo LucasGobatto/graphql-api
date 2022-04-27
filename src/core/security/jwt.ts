@@ -1,18 +1,24 @@
 import * as jwt from "jsonwebtoken";
+import { Inject, Service } from "typedi";
+import { EXPIRATION, SECRET } from "@core/env/env.config";
 
 interface TokenData {
   id: string;
   name: string;
 }
 
+@Service()
 export class JWTService {
-  static sign(data: TokenData): string {
-    return jwt.sign({ data }, process.env.SECRET!, {
-      expiresIn: process.env.EXPIRATION,
-    });
+  constructor(
+    @Inject(SECRET) private readonly secret: string,
+    @Inject(EXPIRATION) private readonly expiresIn: string
+  ) {}
+
+  sign(data: TokenData): string {
+    return jwt.sign({ data }, this.secret, { expiresIn: this.expiresIn });
   }
 
-  static verify(token: string) {
-    return jwt.verify(token, process.env.SECRET!);
+  verify(token: string) {
+    return jwt.verify(token, this.secret);
   }
 }

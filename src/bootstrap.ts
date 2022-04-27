@@ -1,26 +1,39 @@
 import { createServer } from "http";
 import express from "express";
-import dotenv from "dotenv";
 
 import { Database } from "./data/db/config/database.config";
 import { GraphQLServerSetup } from "./api/graphql/config/setup";
 import { configTestPaths } from "./test";
 import { RestServerSetup } from "@rest/config/setup";
+import {
+  DATABASE_NAME,
+  DATABASE_PASSWORD,
+  DATABASE_PORT,
+  DATABASE_USERNAME,
+  EnvConfig,
+  PORT,
+} from "@core/env/env.config";
+import Container from "typedi";
 
 export async function bootstrap(test = false) {
-  const path = test ? "./test.env" : "./.env";
-  dotenv.config({ path });
+  const configEnv = new EnvConfig();
+  configEnv.configure(test);
+
+  const port = Container.get(PORT) ?? 4000;
+  const datatbasePort = Container.get(DATABASE_PORT);
+  const username = Container.get(DATABASE_USERNAME);
+  const password = Container.get(DATABASE_PASSWORD);
+  const database = Container.get(DATABASE_NAME);
 
   const app = express();
-  const PORT = process.env.PORT ?? 4000;
 
+  console.log("Configuring DB");
   await Database.config({
-    port: +process.env.DATABASE_PORT!,
-    username: process.env.DATABASE_USERNAME!,
-    password: process.env.DATABASE_PASSWORD!,
-    database: process.env.DATABASE_NAME!,
+    port: datatbasePort,
+    username,
+    password,
+    database,
   });
-  console.log("DB configured!");
 
   const graphQLServer = new GraphQLServerSetup();
   const server = await graphQLServer.config();
@@ -32,8 +45,8 @@ export async function bootstrap(test = false) {
 
   const httpServer = createServer(app);
 
-  httpServer.listen(PORT);
-  console.log(`Listen at http://localhost:${PORT}/graphql`);
+  httpServer.listen(port);
+  console.log(`Listen at http://localhost:${port}/graphql\n`);
 
   if (test) {
     await configTestPaths();
