@@ -16,7 +16,7 @@ export class CreateUserUseCase {
     const hasUser = await this.findUserInDatabase(data.email);
 
     if (hasUser) {
-      throw new InputError(undefined, "User already registred");
+      throw new InputError("Invalid e-mail");
     }
 
     const user = new UserEntity();
@@ -28,18 +28,20 @@ export class CreateUserUseCase {
     const validEmail = validateEmail(data.email);
 
     if (!validEmail) {
-      throw new InputError(undefined, "Invalid e-mail");
+      throw new InputError("Invalid e-mail");
     }
 
     const validPassword = validatePassword(data.password);
+
     if (!validPassword) {
-      throw new InputError(undefined, "Invalid password");
+      throw new InputError("Invalid password");
     }
 
     if (data.phone) {
       const validPhone = validatePhone(data.phone);
+
       if (!validPhone) {
-        throw new InputError(undefined, "Invalid phone number");
+        throw new InputError("Invalid phone number");
       }
     }
 
