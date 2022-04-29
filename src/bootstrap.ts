@@ -14,11 +14,13 @@ import {
   PORT,
 } from "@core/env/env.config";
 import { Container } from "typedi";
+import { logger } from "@core/logger";
 
 export async function bootstrap(test = false) {
   try {
-    const configEnv = new EnvConfig();
-    configEnv.configure(test);
+    const envConfig = new EnvConfig();
+    envConfig.configure(test);
+    logger.configure();
 
     const port = Container.get(PORT) ?? 4000;
     const datatbasePort = Container.get(DATABASE_PORT);
@@ -28,7 +30,6 @@ export async function bootstrap(test = false) {
 
     const app = express();
 
-    console.log("Configuring DB");
     await Database.config({
       port: datatbasePort,
       username,

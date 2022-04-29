@@ -28,7 +28,6 @@ export function RequestLogger(className: string) {
             message: error.message,
             code: error?.code,
             details: error?.details,
-            error,
           };
 
           logger.error(logParams);
