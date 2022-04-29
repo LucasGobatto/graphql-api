@@ -1,3 +1,5 @@
+import { logger } from "@core/logger";
+
 export function RequestLogger(className: string) {
   return function (target: any, method: string, property: PropertyDescriptor) {
     const originalMethod = property.value;
@@ -16,7 +18,7 @@ export function RequestLogger(className: string) {
           className,
         };
 
-        console.log("[LOG] -", logParams);
+        logger.log(logParams);
         try {
           return await originalMethod.apply(this, args);
         } catch (e) {
@@ -28,7 +30,7 @@ export function RequestLogger(className: string) {
             details: error?.details,
           };
 
-          console.error("[ERROR] -", logParams);
+          logger.error(logParams);
           throw error;
         }
       },

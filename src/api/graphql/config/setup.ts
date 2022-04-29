@@ -4,10 +4,11 @@ import * as path from "path";
 import { buildSchema } from "type-graphql";
 import { Container } from "typedi";
 import { AuthMiddleware } from "./validate-token";
+import { logger } from "@core/logger";
 
 export class GraphQLServerSetup {
   async config() {
-    console.log("Configuring GraphQL server");
+    logger.log("Configuring GraphQL server");
     const schema = await this.getSchema();
 
     return new ApolloServer({

@@ -3,6 +3,7 @@ import { Request, Response } from "express";
 import { AuthError } from "@core/error";
 import { JWTService } from "@core/security/jwt";
 import { Service } from "typedi";
+import { logger } from "@core/logger";
 
 @Service()
 export class AuthMiddleware implements ExpressMiddlewareInterface {
@@ -25,7 +26,7 @@ export class AuthMiddleware implements ExpressMiddlewareInterface {
       next();
     } catch (e) {
       const error = e as any;
-      console.log("[ERROR] -", error);
+      logger.log(error);
 
       response.statusCode = error.code ?? 401;
       next(error.base ? error : new AuthError());

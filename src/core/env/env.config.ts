@@ -8,11 +8,10 @@ export const DATABASE_PASSWORD = new Token<string>("DATABASE_PASSWORD");
 export const DATABASE_NAME = new Token<string>("DATABASE_NAME");
 export const SECRET = new Token<string>("SECRET");
 export const EXPIRATION = new Token<string>("EXPIRATION");
+export const LOG_LEVEL = new Token<string>("LOG_LEVEL");
 
 export class EnvConfig {
   configure(test: boolean) {
-    console.log("Configuring env");
-
     const path = test ? "./test.env" : "./.env";
     dotenv.config({ path });
 
@@ -22,6 +21,7 @@ export class EnvConfig {
     Container.set(DATABASE_PASSWORD, process.env.DATABASE_PASSWORD);
     Container.set(DATABASE_NAME, process.env.DATABASE_NAME);
     Container.set(SECRET, process.env.SECRET);
+    Container.set(LOG_LEVEL, process.env.LOG_LEVEL);
     Container.set(EXPIRATION, process.env.EXPIRATION);
   }
 }
