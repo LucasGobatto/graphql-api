@@ -49,7 +49,7 @@ describe("GraphlQL - UserResolver - Login", () => {
     return seed.userSeed.create([{ ...user }]);
   };
 
-  it.only("should make login successfully", async () => {
+  it("should make login successfully", async () => {
     const validPassword = "1234qwer";
     const [user] = await createUser({ password: validPassword });
     const userData = {
