@@ -5,11 +5,13 @@ import { LoginTypeModel } from "@domain/model/user.model";
 import { Requester } from "@test/requester";
 import { Seed } from "@test/seed";
 import { expect } from "chai";
+import { JWTService } from "@core/security/jwt";
 
 describe("GraphlQL - UserResolver - Login", () => {
   let seed: Seed;
   let repositories: Repositories;
   let requester: Requester;
+  let jwtService: JWTService;
 
   interface Response {
     login: LoginTypeModel;
@@ -32,6 +34,7 @@ describe("GraphlQL - UserResolver - Login", () => {
   before(() => {
     seed = Container.get(Seed);
     repositories = Container.get(Repositories);
+    jwtService = Container.get(JWTService);
   });
 
   beforeEach(async () => {
@@ -46,15 +49,22 @@ describe("GraphlQL - UserResolver - Login", () => {
     return seed.userSeed.create([{ ...user }]);
   };
 
-  it("should make login successfully", async () => {
+  it.only("should make login successfully", async () => {
     const validPassword = "1234qwer";
     const [user] = await createUser({ password: validPassword });
+    const userData = {
+      name: user.name,
+      id: user.id,
+    };
 
     const response = await requester.makeGraphQLRequest<Response>(query, {
       data: { email: user.email, password: validPassword },
     });
+    const token = response.data.login.token;
+    const verifyToken = jwtService.verify(token);
 
-    expect(response.data.login.token).to.not.be.empty;
+    expect(verifyToken.data).to.be.deep.eq(userData);
+    expect(token).to.not.be.empty;
     expect(response.data.login.user).to.be.deep.eq({
       email: user.email,
       name: user.name,
