@@ -16,41 +16,47 @@ import {
 import Container from "typedi";
 
 export async function bootstrap(test = false) {
-  const configEnv = new EnvConfig();
-  configEnv.configure(test);
+  try {
+    const configEnv = new EnvConfig();
+    configEnv.configure(test);
 
-  const port = Container.get(PORT) ?? 4000;
-  const datatbasePort = Container.get(DATABASE_PORT);
-  const username = Container.get(DATABASE_USERNAME);
-  const password = Container.get(DATABASE_PASSWORD);
-  const database = Container.get(DATABASE_NAME);
+    const port = Container.get(PORT) ?? 4000;
+    const datatbasePort = Container.get(DATABASE_PORT);
+    const username = Container.get(DATABASE_USERNAME);
+    const password = Container.get(DATABASE_PASSWORD);
+    const database = Container.get(DATABASE_NAME);
 
-  const app = express();
+    const app = express();
 
-  console.log("Configuring DB");
-  await Database.config({
-    port: datatbasePort,
-    username,
-    password,
-    database,
-  });
+    console.log("Configuring DB");
+    await Database.config({
+      port: datatbasePort,
+      username,
+      password,
+      database,
+    });
 
-  const graphQLServer = new GraphQLServerSetup();
-  const server = await graphQLServer.config();
-  await server.start();
-  server.applyMiddleware({ app, path: "/graphql" });
+    const graphQLServer = new GraphQLServerSetup();
+    const server = await graphQLServer.config();
+    await server.start();
+    server.applyMiddleware({ app, path: "/graphql" });
 
-  const restServer = new RestServerSetup();
-  await restServer.config(app);
+    const restServer = new RestServerSetup();
+    await restServer.config(app);
 
-  const httpServer = createServer(app);
+    const httpServer = createServer(app);
 
-  httpServer.listen(port);
-  console.log(`Listen at http://localhost:${port}/graphql`);
+    httpServer.listen(port);
+    console.log(`Listen at http://localhost:${port}/graphql`);
 
-  if (test) {
-    await configTestPaths();
-    run();
+    if (test) {
+      await configTestPaths();
+      run();
+    }
+
+    console.log();
+  } catch (error) {
+    console.error("Fatal", error);
+    throw error;
   }
-  console.log();
 }

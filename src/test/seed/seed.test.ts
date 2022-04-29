@@ -43,10 +43,11 @@ describe("Unit - Test - Seed", () => {
     const hashedPassword = "hashed-password";
 
     const [user] = await seed.userSeed.create([{ password: hashedPassword }]);
+    const { password } = await repositories.userRespository.findOne(user.id);
 
     expect(user.name).to.be.eq("User Name 1");
     expect(user.email).to.be.eq("fake1@email.com");
-    expect(user.password).to.be.eq(hashedPassword);
+    expect(user.password).to.be.eq(password);
     expect(user.phone).to.be.eq("99999999999");
   });
 });

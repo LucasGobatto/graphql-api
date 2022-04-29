@@ -20,10 +20,12 @@ export class UserSeed {
   }
 
   private async seed(options: Partial<UserEntity> = {}, count: number) {
+    options.password = await CryptoService.hash(options.password ?? "1234qwer");
+
     const defaultUser = {
       name: `User Name ${count}`,
       email: `fake${count}@email.com`,
-      password: await CryptoService.hash("1234qwer"),
+      password: options.password,
       phone: "99999999999",
     };
 
