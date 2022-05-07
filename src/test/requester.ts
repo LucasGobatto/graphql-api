@@ -26,7 +26,7 @@ export class Requester {
 
   async makeGraphQLRequest<T>(
     query: string,
-    variables?: any
+    variables?: { data: any }
   ): Promise<GraphqlResponse<T>> {
     const requester = request(this.baseUrl).post("/graphql");
 

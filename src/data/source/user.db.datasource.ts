@@ -4,6 +4,7 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 import { UserEntity } from "@entity";
 import { PaginatedInputType } from "@domain/model";
 import { GetUncatchedError } from "@core/decorators/get-uncatched-error.decorator";
+import { InputError } from "@core/error";
 
 @Service()
 export class UserDbDataSource {
@@ -12,7 +13,7 @@ export class UserDbDataSource {
     private readonly repository: Repository<UserEntity>
   ) {}
 
-  @GetUncatchedError()
+  @GetUncatchedError(InputError)
   findById(id: string) {
     return this.repository.findOne(id);
   }
