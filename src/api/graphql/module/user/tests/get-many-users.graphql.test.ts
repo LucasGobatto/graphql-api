@@ -10,7 +10,6 @@ import Container from "typedi";
 describe("GraphQL - UserResolver - GetManyUsers", () => {
   let seed: Seed;
   let requester: Requester;
-  let repositories: Repositories;
   let jwtService: JWTService;
 
   let users: UserEntity[];
@@ -38,7 +37,6 @@ describe("GraphQL - UserResolver - GetManyUsers", () => {
 
   before(() => {
     seed = Container.get(Seed);
-    repositories = Container.get(Repositories);
     jwtService = Container.get(JWTService);
   });
 
@@ -62,6 +60,35 @@ describe("GraphQL - UserResolver - GetManyUsers", () => {
 
     const response = await requester.makeGraphQLRequest<Response>(query, {
       data: input,
+    });
+
+    expect(response.data.getManyUsers.hasNextPage).to.be.false;
+    expect(response.data.getManyUsers.hasPreviousPage).to.be.false;
+    expect(response.data.getManyUsers.count).to.be.eq(users.length + 1);
+    checkUsers(response.data);
+  });
+
+  it("should get unauthorized if send invalid token", async () => {
+    const input: UsersInputModel = {
+      limit: 10,
+      offset: 0,
+    };
+
+    const response = await requester
+      .setToken("invalid-token")
+      .makeGraphQLRequest(query, { data: input });
+
+    expect(response.errors).to.have.lengthOf(1);
+    expect(response.errors[0]).to.be.deep.eq({
+      code: 401,
+      message: "Unauthorized. Invalid credentials",
+      details: "jwt malformed",
+    });
+  });
+
+  it("should get all users even if dont send limit and offset", async () => {
+    const response = await requester.makeGraphQLRequest<Response>(query, {
+      data: {},
     });
 
     expect(response.data.getManyUsers.hasNextPage).to.be.false;
