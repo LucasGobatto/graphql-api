@@ -1,4 +1,4 @@
-import { Arg, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Authorized, Mutation, Query, Resolver } from "type-graphql";
 import { Service } from "typedi";
 import {
   CreateUserUseCase,
@@ -7,7 +7,6 @@ import {
   GetManyUsersUseCase,
 } from "@domain";
 import { CreateUserInput, LoginInput, UserInput, UsersInput } from "./input";
-import { ServerContext } from "@domain/model/user.model";
 import { UsersType, UserType, LoginType } from "./type";
 import { RequestLogger } from "@core/decorators";
 
@@ -24,20 +23,14 @@ export class UserResolver {
   @Query(() => UserType, { description: "fetch an especific user" })
   @Authorized()
   @RequestLogger("UserResolver")
-  getOneUser(
-    @Ctx() _ctx: ServerContext,
-    @Arg("data") data: UserInput
-  ): Promise<UserType> {
+  getOneUser(@Arg("data") data: UserInput): Promise<UserType> {
     return this.getOneUserUseCase.exec(data);
   }
 
   @Query(() => UsersType, { description: "fetch many users" })
   @Authorized()
   @RequestLogger("UserResolver")
-  getManyUsers(
-    @Ctx() _ctx: ServerContext,
-    @Arg("data") data: UsersInput
-  ): Promise<UsersType> {
+  getManyUsers(@Arg("data") data: UsersInput): Promise<UsersType> {
     return this.getManyUsersUseCase.exec(data);
   }
 
