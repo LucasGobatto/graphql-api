@@ -27,4 +27,9 @@ export class UserDbDataSource {
   findAndCount({ take, skip }: PaginatedInputType) {
     return this.repository.findAndCount({ order: { id: "ASC" }, take, skip });
   }
+
+  @GetUncatchedError()
+  save(user: Partial<UserEntity>) {
+    return this.repository.save(user);
+  }
 }
