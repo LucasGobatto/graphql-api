@@ -5,7 +5,8 @@
   "main": "src/index.ts",
   "scripts": {
     "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts -e ts,graphql",
-    "build": "tsc",
+    "clear": "rimraf dist",
+    "build": "npm run clear && npx tsc",
     "start": "npm run build && node -r ./tsconfig-paths-bootstrap.js dist/index.js",
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx --fix",
     "docker": "docker-compose up -d",
@@ -45,6 +46,7 @@
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-prettier": "3.4.0",
     "nodemon": "2.0.7",
+    "rimraf": "3.0.2",
     "ts-node": "9.1.1",
     "tsconfig-paths": "3.14.1",
     "typescript": "4.2.4"
