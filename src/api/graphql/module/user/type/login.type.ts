@@ -1,5 +1,5 @@
 import { Field, ObjectType } from "type-graphql";
-import { LoginTypeModel } from "@domain/model/user.model";
+import { LoginTypeModel } from "@domain/model";
 import { UserType } from "./user.type";
 
 @ObjectType()

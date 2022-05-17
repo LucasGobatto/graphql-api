@@ -21,7 +21,7 @@ import {
   UsersInputModel,
   UsersTypeModel,
   UserTypeModel,
-} from "@domain/model/user.model";
+} from "@domain/model";
 import { RequestLogger } from "@core/decorators";
 import { AuthMiddleware, FormatErrorMiddleware } from "@rest/middlewares";
 
