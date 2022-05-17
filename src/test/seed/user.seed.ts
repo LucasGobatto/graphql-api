@@ -8,7 +8,8 @@ import { InjectRepository } from "typeorm-typedi-extensions";
 export class UserSeed {
   constructor(
     @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>
+    private readonly userRepository: Repository<UserEntity>,
+    private readonly cryptoService: CryptoService
   ) {}
 
   async create(options: Partial<UserEntity>[] = []): Promise<UserEntity[]> {
@@ -20,7 +21,9 @@ export class UserSeed {
   }
 
   private async seed(options: Partial<UserEntity> = {}, count: number) {
-    options.password = await CryptoService.hash(options.password ?? "1234qwer");
+    options.password = await this.cryptoService.hash(
+      options.password ?? "1234qwer"
+    );
 
     const defaultUser = {
       name: `User Name ${count}`,

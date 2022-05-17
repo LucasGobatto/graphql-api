@@ -1,8 +1,6 @@
-import { getRepository } from "typeorm";
-
 import { CryptoService } from "@core/security/crypto";
 import { UserEntity } from "@entity";
-import { CreateUserInputModel, UserTypeModel } from "./model/user.model";
+import { CreateUserInputModel, UserTypeModel } from "./model";
 import { validateEmail, validatePassword, validatePhone } from "./validation";
 import { InputError } from "@core/error";
 import { Service } from "typedi";
@@ -10,7 +8,10 @@ import { UserDbDataSource } from "@data/source";
 
 @Service()
 export class CreateUserUseCase {
-  constructor(private readonly userDbDataSource: UserDbDataSource) {}
+  constructor(
+    private readonly userDbDataSource: UserDbDataSource,
+    private readonly cryptoService: CryptoService
+  ) {}
 
   async exec(data: CreateUserInputModel): Promise<UserTypeModel> {
     const hasUser = await this.userDbDataSource.findOneByEmail(data.email);
@@ -45,7 +46,7 @@ export class CreateUserUseCase {
       }
     }
 
-    user.password = await CryptoService.hash(data.password);
+    user.password = await this.cryptoService.hash(data.password);
 
     return this.userDbDataSource.save(user);
   }

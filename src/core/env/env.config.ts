@@ -9,6 +9,8 @@ export const DATABASE_NAME = new Token<string>("DATABASE_NAME");
 export const SECRET = new Token<string>("SECRET");
 export const EXPIRATION = new Token<string>("EXPIRATION");
 export const LOG_LEVEL = new Token<string>("LOG_LEVEL");
+export const CRYPTO_BYTE_LENGTH = new Token<string>("CRYPTO_BYTE_LENGTH");
+export const CRYPTO_KEY_LENGTH = new Token<string>("CRYPTO_KEY_LENGTH");
 
 export class EnvConfig {
   configure(test: boolean) {
@@ -23,5 +25,7 @@ export class EnvConfig {
     Container.set(SECRET, process.env.SECRET);
     Container.set(LOG_LEVEL, process.env.LOG_LEVEL);
     Container.set(EXPIRATION, process.env.EXPIRATION);
+    Container.set(CRYPTO_BYTE_LENGTH, process.env.CRYTPTO_BYTE_LENGTH);
+    Container.set(CRYPTO_KEY_LENGTH, process.env.CRYTPTO_KEY_LENGTH);
   }
 }
