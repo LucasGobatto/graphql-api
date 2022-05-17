@@ -13,13 +13,12 @@ import { UserDbDataSource } from "@data/source";
 export class LoginUseCase {
   constructor(
     private readonly userDbDataSource: UserDbDataSource,
-    private readonly jwtService: JWTService
+    private readonly jwtService: JWTService,
+    private readonly cryptoService: CryptoService
   ) {}
 
   async exec(data: LoginInputModel): Promise<LoginTypeModel> {
-    const { password, email } = data;
-
-    const user = await this.validateLogin({ password, email });
+    const user = await this.validateLogin(data);
 
     const { id, name } = user;
     const token = this.jwtService.sign({ name, id });
@@ -30,20 +29,16 @@ export class LoginUseCase {
     };
   }
 
-  private async validateLogin({
-    password,
-    email,
-  }: {
-    password: string;
-    email: string;
-  }): Promise<UserTypeModel> {
+  private async validateLogin(input: LoginInputModel): Promise<UserTypeModel> {
+    const { password, email } = input;
+
     const user = await this.userDbDataSource.findOneByEmail(email);
 
     if (!user) {
       throw new AuthError();
     }
 
-    const isValid = await CryptoService.verify(password, user.password);
+    const isValid = await this.cryptoService.verify(password, user.password);
 
     if (!isValid) {
       throw new AuthError();
