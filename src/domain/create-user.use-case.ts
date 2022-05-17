@@ -13,7 +13,7 @@ export class CreateUserUseCase {
   constructor(private readonly userDbDataSource: UserDbDataSource) {}
 
   async exec(data: CreateUserInputModel): Promise<UserTypeModel> {
-    const hasUser = await this.findUserInDatabase(data.email);
+    const hasUser = await this.userDbDataSource.findOneByEmail(data.email);
 
     if (hasUser) {
       throw new InputError("Invalid e-mail");
@@ -47,10 +47,6 @@ export class CreateUserUseCase {
 
     user.password = await CryptoService.hash(data.password);
 
-    return await getRepository(UserEntity).save(user);
-  }
-
-  private findUserInDatabase(email: string): Promise<UserEntity | undefined> {
-    return this.userDbDataSource.findOneByEmail(email);
+    return this.userDbDataSource.save(user);
   }
 }
