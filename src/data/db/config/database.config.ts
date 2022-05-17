@@ -1,4 +1,5 @@
 import { logger } from "@core/logger";
+import * as path from "path";
 import { Connection, createConnection } from "typeorm";
 
 interface DatabaseParams {
@@ -19,8 +20,12 @@ export class Database {
       username: param.username,
       password: param.password,
       database: param.database,
-      entities: [__dirname + "/../entity/*.ts"],
-      synchronize: true,
+      entities: [path.join(__dirname, "..", "entity", "*.ts")],
+      migrations: [path.join(__dirname, "..", "migrate", "*", "**.migrate.ts")],
+      cli: {
+        migrationsDir: path.join(__dirname, "..", "migrate"),
+      },
+      synchronize: false,
     });
   }
 }
