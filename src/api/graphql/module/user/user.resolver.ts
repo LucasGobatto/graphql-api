@@ -5,7 +5,7 @@ import {
   GetOneUserUseCase,
   LoginUseCase,
   GetManyUsersUseCase,
-} from "@domain";
+} from "@domain/user";
 import { CreateUserInput, LoginInput, UserInput, UsersInput } from "./input";
 import { UsersType, UserType, LoginType } from "./type";
 import { RequestLogger } from "@core/decorators";

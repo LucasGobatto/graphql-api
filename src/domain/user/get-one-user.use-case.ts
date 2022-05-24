@@ -1,5 +1,5 @@
 import { Service } from "typedi";
-import { UserInputModel, UserTypeModel } from "./model/user.model";
+import { UserInputModel, UserTypeModel } from "@domain/model";
 import { InputError, NotFoundError } from "@core/error";
 import { UserDbDataSource } from "@data/source";
 
