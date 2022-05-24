@@ -1,6 +1,6 @@
 import { Service } from "typedi";
 import { InputError } from "@core/error";
-import { UsersInputModel, UsersTypeModel } from "./model/user.model";
+import { UsersInputModel, UsersTypeModel } from "@domain/model";
 import { UserDbDataSource } from "@data/source";
 
 @Service()

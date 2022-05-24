@@ -12,7 +12,7 @@ import {
   CreateUserUseCase,
   GetOneUserUseCase,
   GetManyUsersUseCase,
-} from "@domain";
+} from "@domain/user";
 import {
   CreateUserInputModel,
   LoginInputModel,

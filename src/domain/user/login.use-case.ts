@@ -1,11 +1,7 @@
 import { Service } from "typedi";
 import { CryptoService } from "@core/security/crypto";
 import { JWTService } from "@core/security/jwt";
-import {
-  LoginInputModel,
-  LoginTypeModel,
-  UserTypeModel,
-} from "./model/user.model";
+import { LoginInputModel, LoginTypeModel, UserTypeModel } from "@domain/model";
 import { AuthError } from "@core/error";
 import { UserDbDataSource } from "@data/source";
 

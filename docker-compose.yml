@@ -1,21 +1,22 @@
-localdb:
-  image: postgres:11.2
-  ports:
-    - "5434:5432"
-  volumes:
-    - ./db/dumps:/app-db-dumps
-  environment:
-    - POSTGRES_USER=root
-    - POSTGRES_PASSWORD=admin
-    - POSTGRES_DB=template
+services:
+  localdb:
+    image: postgres:11.2
+    ports:
+      - "5434:5432"
+    volumes:
+      - ./db/dumps:/app-db-dumps
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=template
 
-testdb:
-  image: postgres:11.2
-  ports:
-    - "5435:5432"
-  volumes:
-    - ./db/dumps:/app-db-dumps
-  environment:
-    - POSTGRES_USER=root
-    - POSTGRES_PASSWORD=admin
-    - POSTGRES_DB=test_template
+  testdb:
+    image: postgres:11.2
+    ports:
+      - "5435:5432"
+    volumes:
+      - ./db/dumps:/app-db-dumps
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=test_template
